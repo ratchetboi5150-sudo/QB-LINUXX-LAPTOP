@@ -1,0 +1,691 @@
+/* ================================================================
+   HOME COMPUTER — enhancements_core.css
+   Premium visual layer — cascades ON TOP of style.css
+   GPU-accelerated · Glassmorphism · Micro-animations
+   ================================================================ */
+
+/* ──────────────────────────────────────────────────────────────────
+   §1  DESIGN SYSTEM — Extended Variables
+   ────────────────────────────────────────────────────────────────── */
+:root {
+  /* Premium easing curves */
+  --ease-premium:     cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce:      cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out-expo:    cubic-bezier(0.19, 1, 0.22, 1);
+
+  /* Glassmorphism tokens */
+  --glass-blur:       28px;
+  --glass-tint:       rgba(20, 22, 40, 0.72);
+  --glass-tint-heavy: rgba(10, 12, 28, 0.88);
+
+  /* Glow / accent tokens */
+  --accent-glow:      rgba(96, 205, 255, 0.35);
+  --glow-purple:      rgba(145, 70, 255, 0.3);
+  --glow-soft:        rgba(96, 205, 255, 0.12);
+
+  /* Gradients */
+  --gradient-accent:  linear-gradient(135deg, #0078d4, #60cdff, #9146ff);
+  --gradient-border:  linear-gradient(90deg, transparent, rgba(96, 205, 255, 0.35), rgba(145, 70, 255, 0.25), transparent);
+
+  /* Animation durations */
+  --dur-fast:   0.15s;
+  --dur-normal: 0.28s;
+  --dur-slow:   0.45s;
+  --dur-glacial: 0.6s;
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   §2  BOOT SCREEN (#boot)
+   Scanline sweep · Neon glow bar · Letter-spacing pulse · Radial pulses
+   ────────────────────────────────────────────────────────────────── */
+
+/* Radial pulse background */
+#boot {
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 50%, rgba(0, 120, 212, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 30% 70%, rgba(145, 70, 255, 0.04) 0%, transparent 60%),
+    #000010;
+  animation: bootBgPulse 3s ease-in-out infinite alternate;
+}
+@keyframes bootBgPulse {
+  0%   { background-size: 100% 100%, 100% 100%, 100% 100%; }
+  100% { background-size: 140% 140%, 120% 120%, 100% 100%; }
+}
+
+/* Scanline sweep over the boot logo */
+.boot-logo {
+  position: relative;
+  overflow: hidden;
+}
+.boot-logo::after {
+  content: '';
+  position: absolute;
+  inset: -20% -10%;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    rgba(96, 205, 255, 0.03) 2px,
+    transparent 4px
+  );
+  animation: scanlineSweep 2.4s linear infinite;
+  pointer-events: none;
+}
+@keyframes scanlineSweep {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+/* Boot progress bar — trailing neon glow */
+.boot-bar {
+  position: relative;
+  box-shadow:
+    0 0 8px rgba(96, 205, 255, 0.5),
+    0 0 20px rgba(96, 205, 255, 0.2);
+}
+.boot-bar::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  right: -2px;
+  width: 24px;
+  height: calc(100% + 6px);
+  background: linear-gradient(90deg, transparent, rgba(96, 205, 255, 0.6), rgba(255, 255, 255, 0.9));
+  border-radius: 0 2px 2px 0;
+  filter: blur(3px);
+  animation: bootLoad 2.4s ease forwards;
+}
+
+/* Boot text — subtle letter-spacing animation */
+.boot-text {
+  animation: bootTextBreathe 1.6s ease-in-out infinite alternate;
+}
+@keyframes bootTextBreathe {
+  0%   { letter-spacing: 3px;  opacity: 0.8; }
+  100% { letter-spacing: 5px;  opacity: 1; }
+}
+
+/* Boot sub-text fade-in */
+.boot-sub {
+  animation: bootSubFade 1.2s 1.5s ease both;
+}
+@keyframes bootSubFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   §3  DESKTOP (#desktop)
+   Enhanced aurora · Floating particles · Glass icon hovers
+   ────────────────────────────────────────────────────────────────── */
+
+/* Enhanced aurora — more colour layers, slower rotation */
+#desktop::before {
+  background: conic-gradient(from 0deg at 40% 60%,
+    transparent 0deg,
+    rgba(0, 120, 212, 0.12) 30deg,
+    rgba(96, 205, 255, 0.06) 60deg,
+    transparent 90deg,
+    rgba(145, 70, 255, 0.10) 140deg,
+    rgba(200, 120, 255, 0.05) 170deg,
+    transparent 200deg,
+    rgba(0, 200, 180, 0.08) 260deg,
+    rgba(0, 120, 212, 0.05) 300deg,
+    transparent 360deg);
+  animation: aurora 32s linear infinite;
+}
+
+/* Floating particle effect — subtle dots */
+#desktop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, rgba(96, 205, 255, 0.25) 50%, transparent 50%),
+    radial-gradient(1px 1px at 30% 70%, rgba(145, 70, 255, 0.2) 50%, transparent 50%),
+    radial-gradient(1px 1px at 55% 15%, rgba(255, 255, 255, 0.15) 50%, transparent 50%),
+    radial-gradient(1px 1px at 75% 55%, rgba(96, 205, 255, 0.2) 50%, transparent 50%),
+    radial-gradient(1px 1px at 90% 35%, rgba(145, 70, 255, 0.15) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 20% 85%, rgba(0, 200, 180, 0.18) 50%, transparent 50%),
+    radial-gradient(1px 1px at 65% 90%, rgba(96, 205, 255, 0.12) 50%, transparent 50%),
+    radial-gradient(1px 1px at 45% 45%, rgba(255, 255, 255, 0.1) 50%, transparent 50%);
+  background-size: 200px 200px;
+  animation: particleDrift 25s linear infinite;
+  pointer-events: none;
+  opacity: 0.7;
+}
+@keyframes particleDrift {
+  0%   { transform: translateY(0) translateX(0); }
+  50%  { transform: translateY(-30px) translateX(15px); }
+  100% { transform: translateY(0) translateX(0); }
+}
+
+/* Desktop icons — glass pill hover, bounce on active */
+.desk-icon {
+  transition: background var(--dur-normal) var(--ease-premium),
+              transform var(--dur-fast) ease;
+}
+.desk-icon:hover {
+  background: var(--glass-tint);
+  backdrop-filter: blur(12px);
+  box-shadow:
+    inset 0 0 0 1px rgba(96, 205, 255, 0.12),
+    0 4px 16px rgba(0, 0, 0, 0.3);
+}
+.desk-icon:active {
+  background: var(--bg-active);
+  animation: iconBounce 0.35s var(--ease-bounce);
+}
+@keyframes iconBounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(0.88); }
+  70%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Icon label — better text shadow for readability */
+.desk-icon span {
+  text-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.9),
+    0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   §4  TASKBAR (#taskbar)
+   Stronger glass · Edge highlight · Breathing start button ·
+   Active indicator glow · Clock gradient · Tray glow rings
+   ────────────────────────────────────────────────────────────────── */
+
+/* Stronger frosted glass */
+#taskbar {
+  backdrop-filter: blur(32px) saturate(1.6);
+  -webkit-backdrop-filter: blur(32px) saturate(1.6);
+  position: relative;
+}
+
+/* Top-edge 1px gradient highlight */
+#taskbar::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--gradient-border);
+  pointer-events: none;
+}
+
+/* Start button — breathing glow */
+#start-btn {
+  transition: background var(--dur-normal) var(--ease-premium),
+              transform 0.1s ease,
+              box-shadow var(--dur-slow) ease;
+  animation: startBreathe 3s ease-in-out infinite;
+}
+@keyframes startBreathe {
+  0%, 100% { box-shadow: 0 0 0px transparent; }
+  50%      { box-shadow: 0 0 12px rgba(96, 205, 255, 0.15), 0 0 4px rgba(96, 205, 255, 0.08); }
+}
+#start-btn:hover {
+  box-shadow: 0 0 16px rgba(96, 205, 255, 0.25);
+  animation: none;
+}
+
+/* Taskbar app buttons — smoother transitions */
+.tb-app {
+  transition: background var(--dur-normal) var(--ease-premium),
+              color var(--dur-normal) ease,
+              width var(--dur-slow) var(--ease-premium),
+              border-color var(--dur-normal) ease,
+              box-shadow var(--dur-normal) ease;
+}
+
+/* Active app — stronger glow + animated bottom indicator */
+.tb-app.active {
+  box-shadow:
+    0 0 10px rgba(96, 205, 255, 0.12),
+    inset 0 0 8px rgba(0, 120, 212, 0.08);
+}
+.tb-app.active::after {
+  width: 28px;
+  height: 2px;
+  background: var(--accent2);
+  box-shadow: 0 0 8px rgba(96, 205, 255, 0.5), 0 0 3px rgba(96, 205, 255, 0.3);
+  animation: indicatorSlide 0.3s var(--ease-bounce) both;
+}
+@keyframes indicatorSlide {
+  from { width: 0; opacity: 0; }
+  to   { width: 28px; opacity: 1; }
+}
+
+/* Clock area — subtle text gradient on time */
+#clock-time {
+  background: linear-gradient(135deg, #e8eaf0 0%, #60cdff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Tray icons — individual hover glow ring */
+.tray-icon {
+  transition: background var(--dur-fast) ease,
+              box-shadow var(--dur-normal) ease;
+}
+.tray-icon:hover {
+  background: var(--bg-hover);
+  box-shadow:
+    0 0 0 1px rgba(96, 205, 255, 0.15),
+    0 0 10px rgba(96, 205, 255, 0.1);
+}
+
+/* Weather widget — subtle gradient background */
+#tray-weather-widget {
+  background: linear-gradient(135deg, rgba(0, 120, 212, 0.06), rgba(96, 205, 255, 0.04));
+  transition: background var(--dur-normal) var(--ease-premium),
+              transform 0.1s ease,
+              border-color var(--dur-normal) ease,
+              box-shadow var(--dur-normal) ease;
+}
+#tray-weather-widget:hover {
+  background: linear-gradient(135deg, rgba(0, 120, 212, 0.12), rgba(96, 205, 255, 0.08));
+  box-shadow: 0 0 12px rgba(96, 205, 255, 0.08);
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   §5  START MENU (#start-menu)
+   Slide + scale + blur entrance · Gradient-border search · Ripple items
+   ────────────────────────────────────────────────────────────────── */
+
+/* Enhanced opening animation — slide + scale + backdrop blur */
+#start-menu {
+  backdrop-filter: blur(0px);
+  transition: backdrop-filter var(--dur-slow) ease;
+}
+#start-menu.open {
+  animation: startMenuOpen 0.32s var(--ease-premium) both;
+  backdrop-filter: blur(32px);
+}
+@keyframes startMenuOpen {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.95);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* Frosted inner border highlight */
+#start-menu.open {
+  box-shadow:
+    var(--shadow-lg),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.06),
+    inset 1px 0 0 0 rgba(255, 255, 255, 0.03);
+}
+
+/* Search bar — animated gradient border on focus (background-clip trick) */
+.sm-search {
+  position: relative;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-bright);
+  transition: border-color var(--dur-normal) ease,
+              box-shadow var(--dur-normal) ease;
+}
+.sm-search:focus-within {
+  border-color: transparent;
+  background:
+    linear-gradient(rgba(12, 14, 30, 0.97), rgba(12, 14, 30, 0.97)) padding-box,
+    var(--gradient-accent) border-box;
+  box-shadow: 0 0 16px rgba(96, 205, 255, 0.12);
+}
+
+/* Grid items — hover ripple effect + slight scale */
+.sm-item {
+  position: relative;
+  overflow: hidden;
+  transition: background var(--dur-normal) var(--ease-premium),
+              transform var(--dur-normal) var(--ease-premium);
+}
+.sm-item:hover {
+  background: var(--bg-hover);
+  transform: scale(1.04);
+}
+.sm-item:active {
+  transform: scale(0.96);
+}
+/* Radial-gradient ripple highlight */
+.sm-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(96, 205, 255, 0.12) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity var(--dur-normal) ease;
+  pointer-events: none;
+}
+.sm-item:hover::before {
+  opacity: 1;
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   §6  WINDOWS (.win)
+   Spring-like open · Title bar gradient · Focus glow · Better buttons
+   ────────────────────────────────────────────────────────────────── */
+
+/* Enhanced open animation — spring ease with overshoot */
+.win.show {
+  animation: winOpenEnhanced 0.35s var(--ease-bounce) both;
+}
+@keyframes winOpenEnhanced {
+  0% {
+    opacity: 0;
+    transform: scale(0.88) translateY(14px);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0px);
+  }
+}
+
+/* Title bar — 1px gradient line at top */
+.win-titlebar {
+  position: relative;
+}
+.win-titlebar::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: var(--gradient-border);
+  pointer-events: none;
+}
+
+/* Focus state — outer glow with accent colour spread */
+.win.focused {
+  border-color: rgba(96, 205, 255, 0.38);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.82),
+    0 0 1px 1px rgba(96, 205, 255, 0.1),
+    0 0 20px rgba(96, 205, 255, 0.06);
+  animation: winFocusPulse 3s ease-in-out infinite;
+}
+@keyframes winFocusPulse {
+  0%, 100% {
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.82),
+      0 0 1px 1px rgba(96, 205, 255, 0.1),
+      0 0 20px rgba(96, 205, 255, 0.06);
+  }
+  50% {
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.82),
+      0 0 1px 1px rgba(96, 205, 255, 0.14),
+      0 0 28px rgba(96, 205, 255, 0.1);
+  }
+}
+
+/* All window buttons — better hover with subtle scale */
+.wbtn {
+  transition: background var(--dur-fast) ease,
+              transform var(--dur-fast) ease;
+}
+.wbtn:hover {
+  transform: scale(1.08);
+}
+.wbtn:active {
+  transform: scale(0.92);
+}
+
+/* Close button — smooth background fill */
+.wbtn.close {
+  transition: background 0.2s var(--ease-premium),
+              color 0.2s ease,
+              transform var(--dur-fast) ease;
+}
+
+/* Win-body — subtle inner shadow for depth */
+.win-body {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   §7  CONTEXT MENU (#ctx-menu)
+   Highlight sweep · Gradient separators · Scale + blur cascade
+   ────────────────────────────────────────────────────────────────── */
+
+/* Opening — scale + blur cascade */
+#ctx-menu.show {
+  animation: ctxOpenEnhanced 0.2s var(--ease-premium) both;
+}
+@keyframes ctxOpenEnhanced {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* Items — highlight sweep from left via gradient background-position */
+.ctx-item {
+  background:
+    linear-gradient(90deg,
+      rgba(96, 205, 255, 0.1) 0%,
+      rgba(96, 205, 255, 0.04) 40%,
+      transparent 70%)
+    no-repeat;
+  background-size: 0% 100%;
+  background-position: left center;
+  transition: background-size var(--dur-normal) var(--ease-premium),
+              color var(--dur-fast) ease;
+}
+.ctx-item:hover {
+  background-size: 100% 100%;
+  color: var(--text-bright);
+}
+
+/* Separators — gradient fade (transparent edges) */
+.ctx-sep {
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 20%,
+    rgba(255, 255, 255, 0.08) 80%,
+    transparent 100%);
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   §8  NOTIFICATION SYSTEM
+   Enhanced toast glass · Shimmer overlay · Spring entrance ·
+   Staggered NC items · Type borders · Clear button sweep
+   ────────────────────────────────────────────────────────────────── */
+
+/* Toast notifications — enhanced glass + shimmer overlay */
+.toast-notification {
+  backdrop-filter: blur(28px) saturate(1.5);
+  -webkit-backdrop-filter: blur(28px) saturate(1.5);
+  transition: transform 0.45s var(--ease-bounce),
+              opacity 0.3s ease;
+}
+/* Shimmer overlay */
+.toast-notification::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; right: 0; bottom: 0;
+  width: 200%;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.03) 45%,
+    rgba(255, 255, 255, 0.06) 50%,
+    rgba(255, 255, 255, 0.03) 55%,
+    transparent 60%
+  );
+  animation: toastShimmer 3s 0.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes toastShimmer {
+  0%   { transform: translateX(-30%); }
+  100% { transform: translateX(60%); }
+}
+
+/* Toast entrance — spring ease (cascading with .show) */
+.toast-notification.show {
+  transition: transform 0.5s var(--ease-bounce),
+              opacity 0.35s ease;
+}
+
+/* Notification center — staggered item animations */
+#notification-center.open {
+  animation: ncSlideInEnhanced 0.3s var(--ease-premium) both;
+}
+@keyframes ncSlideInEnhanced {
+  from {
+    opacity: 0;
+    transform: translateX(30px) scale(0.98);
+    filter: blur(2px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* Staggered animation for nc-items */
+.nc-item {
+  animation: ncItemFadeIn 0.3s var(--ease-premium) both;
+}
+.nc-item:nth-child(1) { animation-delay: 0.04s; }
+.nc-item:nth-child(2) { animation-delay: 0.08s; }
+.nc-item:nth-child(3) { animation-delay: 0.12s; }
+.nc-item:nth-child(4) { animation-delay: 0.16s; }
+.nc-item:nth-child(5) { animation-delay: 0.20s; }
+.nc-item:nth-child(6) { animation-delay: 0.24s; }
+.nc-item:nth-child(7) { animation-delay: 0.28s; }
+.nc-item:nth-child(8) { animation-delay: 0.32s; }
+@keyframes ncItemFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* NC items — left border colour matching notification type */
+.nc-item {
+  border-left: 3px solid rgba(96, 205, 255, 0.3);
+  transition: background var(--dur-normal) ease,
+              border-color var(--dur-normal) ease,
+              transform var(--dur-fast) ease;
+}
+.nc-item:hover {
+  transform: translateX(2px);
+}
+
+/* NC item type-specific left borders (matching toast types) */
+.nc-item[data-type="crime"]         { border-left-color: #f87171; }
+.nc-item[data-type="police"],
+.nc-item[data-type="wanted"]        { border-left-color: #60a5fa; }
+.nc-item[data-type="politics"]      { border-left-color: #c084fc; }
+.nc-item[data-type="economy"]       { border-left-color: #fbbf24; }
+.nc-item[data-type="traffic"]       { border-left-color: #fb923c; }
+.nc-item[data-type="entertainment"] { border-left-color: #f472b6; }
+.nc-item[data-type="sports"]        { border-left-color: #2dd4bf; }
+.nc-item[data-type="tech"]          { border-left-color: #4ade80; }
+.nc-item[data-type="weather"],
+.nc-item[data-type="temperature"]   { border-left-color: #22d3ee; }
+
+/* Clear button — sweep background animation on hover */
+.nc-clear-btn {
+  position: relative;
+  overflow: hidden;
+  transition: background var(--dur-normal) ease,
+              color var(--dur-normal) ease;
+}
+.nc-clear-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    rgba(96, 205, 255, 0.1) 0%,
+    rgba(96, 205, 255, 0.06) 50%,
+    transparent 100%);
+  transform: translateX(-100%);
+  transition: transform var(--dur-normal) var(--ease-premium);
+  pointer-events: none;
+}
+.nc-clear-btn:hover::before {
+  transform: translateX(0);
+}
+.nc-clear-btn:hover {
+  color: var(--accent2);
+  border-color: rgba(96, 205, 255, 0.2);
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   §9  SCROLLBARS
+   Thinner track · Rounded thumb · Accent glow on hover
+   ────────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(96, 205, 255, 0.25);
+  box-shadow: 0 0 6px rgba(96, 205, 255, 0.2);
+}
+
+/* NC body scrollbar — override for consistency */
+.nc-body::-webkit-scrollbar { width: 4px; }
+.nc-body::-webkit-scrollbar-thumb { border-radius: 4px; }
+.nc-body::-webkit-scrollbar-thumb:hover {
+  background: rgba(96, 205, 255, 0.25);
+}
+
+
+/* ──────────────────────────────────────────────────────────────────
+   §10  TOOLTIP ENHANCEMENT
+   Backdrop blur · Better shadow · Animated opacity + translate
+   ────────────────────────────────────────────────────────────────── */
+.tooltip::after {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: var(--glass-tint);
+  border: 1px solid rgba(96, 205, 255, 0.12);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.4),
+    0 0 1px rgba(96, 205, 255, 0.1);
+  transform: translateX(-50%) translateY(4px);
+  transition: opacity var(--dur-normal) var(--ease-premium),
+              transform var(--dur-normal) var(--ease-premium);
+}
+.tooltip:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

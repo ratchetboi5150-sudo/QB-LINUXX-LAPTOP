@@ -1,0 +1,235 @@
+<!-- JOB BOARD -->
+<div class="win" id="win-jobboard" style="top:50px;left:50px;width:700px;height:500px;">
+  <div class="win-titlebar" onmousedown="startDrag(event,'win-jobboard')">
+    <span class="win-icon" style="color: #00f3ff;">💼</span>
+    <span class="win-title">Los Santos Job Board</span>
+    <div class="win-ctrls">
+      <button class="wbtn" onclick="minimizeWin('jobboard')">─</button>
+      <button class="wbtn" onclick="maximizeWin('win-jobboard')">⬜</button>
+      <button class="wbtn close" onclick="closeApp('jobboard')">✕</button>
+    </div>
+  </div>
+  <div class="win-body jobboard-body" style="background: #0b0f19; display: flex; color: #e2e8f0; height: 100%;">
+    <div class="jobboard-sidebar" style="width: 200px; background: rgba(4, 6, 12, 0.8); border-right: 1px solid rgba(0, 243, 255, 0.2); padding: 20px 0;">
+      <div class="jobboard-brand" style="text-align: center; font-size: 16px; font-weight: bold; color: #00f3ff; margin-bottom: 25px; text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);">
+          HUSTLE.NET
+      </div>
+      <div class="jobboard-nav">
+          <div class="jobboard-nav-item active" onclick="filterJobs('all')" id="nav-job-all" style="padding: 12px 20px; cursor: pointer; transition: 0.2s;">All Listings</div>
+          <div class="jobboard-nav-item" onclick="filterJobs('labor')" id="nav-job-labor" style="padding: 12px 20px; cursor: pointer; transition: 0.2s;">Manual Labor</div>
+          <div class="jobboard-nav-item" onclick="filterJobs('tech')" id="nav-job-tech" style="padding: 12px 20px; cursor: pointer; transition: 0.2s;">Technology</div>
+          <div class="jobboard-nav-item" onclick="filterJobs('street')" id="nav-job-street" style="padding: 12px 20px; cursor: pointer; transition: 0.2s;">Street Hustle</div>
+          <div class="jobboard-nav-item" onclick="openJobModWorkstation(this)" id="nav-job-mods" style="padding: 12px 20px; cursor: pointer; transition: 0.2s; color: #a855f7; display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-code-merge"></i> Mod Workstation</div>
+      </div>
+    </div>
+    <div class="jobboard-content" style="flex-grow: 1; padding: 25px; overflow-y: auto;">
+      <!-- Job Listings Section -->
+      <div id="jobboard-listings-sec">
+        <div class="jobboard-header" style="margin-bottom: 25px; border-bottom: 1px solid rgba(0, 243, 255, 0.2); padding-bottom: 15px;">
+            <h2 style="margin: 0 0 5px 0; color: white;">Available Contracts</h2>
+            <p style="margin: 0; color: #94a3b8; font-size: 13px;">Find your next gig in San Andreas.</p>
+        </div>
+        <div class="jobboard-grid" id="jobboard-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+            <!-- Populated via JS -->
+        </div>
+      </div>
+      
+      <!-- Mod Workstation Section -->
+      <div id="jobboard-mods-sec" class="hidden" style="height: 100%; display: flex; flex-direction: column;">
+        <div style="margin-bottom: 15px; border-bottom: 1px solid rgba(168, 85, 247, 0.2); padding-bottom: 12px;">
+          <h2 style="margin: 0 0 5px 0; color: white;">Hustle.Net Mod Workstation</h2>
+          <p style="margin: 0; color: #94a3b8; font-size: 13px;">Compile and inject job modules to interface custom gameplay APIs.</p>
+        </div>
+        <div style="display: flex; gap: 20px; flex-grow: 1; overflow: hidden; min-height: 0;">
+          <!-- Left Column: Mod Listings -->
+          <div style="width: 40%; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; padding-right: 5px;">
+            <h4 style="margin: 0; font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Job Integrations</h4>
+            <div id="jobboard-mods-list" style="display: flex; flex-direction: column; gap: 8px;">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+          <!-- Right Column: Compiler Workbench -->
+          <div id="job-compiler-workspace" style="width: 60%; display: flex; flex-direction: column; gap: 12px;">
+            <div id="job-compiler-empty" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; color: #475569; text-align: center; border: 1px dashed rgba(168, 85, 247, 0.2); border-radius: 8px; padding: 20px;">
+              <i class="fa-solid fa-microchip" style="font-size: 32px; margin-bottom: 12px; color: #3b2b4c;"></i>
+              <div style="font-weight: bold; font-size: 13px; color: #94a3b8;">No Module Selected</div>
+              <div style="font-size: 11px; margin-top: 5px; color: #64748b;">Select a job mod from the list to load it into the compiler workstation.</div>
+            </div>
+            
+            <div id="job-compiler-active" class="hidden" style="display: flex; flex-direction: column; gap: 12px; height: 100%;">
+              <div style="padding: 12px; background: rgba(30, 27, 46, 0.4); border: 1px solid rgba(168, 85, 247, 0.2); border-radius: 6px;">
+                <h4 id="job-active-mod-name" style="margin: 0 0 4px 0; color: white; font-size: 14px;">Delivery Driver Integration</h4>
+                <div style="font-size: 10px; color: #64748b; font-family: var(--font-mono);">Assembly File: DriverJobs.dll</div>
+              </div>
+              
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <div style="font-size: 10px; font-weight: bold; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Required Binaries</div>
+                
+                <!-- DLL Slot -->
+                <div class="job-file-slot" id="job-slot-dll" onclick="stageJobFile('dll')">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fa-solid fa-file-code" style="color: #a855f7; font-size: 16px;"></i>
+                    <div>
+                      <div style="font-size: 12px; font-weight: bold; color: white;">Assembly DLL</div>
+                      <div id="job-slot-dll-name" style="font-size: 9px; color: #64748b; font-family: var(--font-mono);">Not Loaded</div>
+                    </div>
+                  </div>
+                  <div id="job-slot-dll-status" style="font-size: 9px; font-weight: bold; color: #ef4444; text-transform: uppercase; background: rgba(239, 68, 68, 0.1); padding: 2px 6px; border-radius: 4px;">Missing</div>
+                </div>
+                
+                <!-- XML Jobs Slot -->
+                <div class="job-file-slot" id="job-slot-jobsXml" onclick="stageJobFile('jobsXml')">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fa-solid fa-file-xml" style="color: #00f3ff; font-size: 16px;"></i>
+                    <div>
+                      <div style="font-size: 12px; font-weight: bold; color: white;">Jobs Pool Config</div>
+                      <div id="job-slot-jobsXml-name" style="font-size: 9px; color: #64748b; font-family: var(--font-mono);">Not Loaded</div>
+                    </div>
+                  </div>
+                  <div id="job-slot-jobsXml-status" style="font-size: 9px; font-weight: bold; color: #ef4444; text-transform: uppercase; background: rgba(239, 68, 68, 0.1); padding: 2px 6px; border-radius: 4px;">Missing</div>
+                </div>
+                
+                <!-- XML Tuning Slot -->
+                <div class="job-file-slot" id="job-slot-tuningXml" onclick="stageJobFile('tuningXml')">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fa-solid fa-file-lines" style="color: #eab308; font-size: 16px;"></i>
+                    <div>
+                      <div style="font-size: 12px; font-weight: bold; color: white;">Tuning Calibration</div>
+                      <div id="job-slot-tuningXml-name" style="font-size: 9px; color: #64748b; font-family: var(--font-mono);">Not Loaded</div>
+                    </div>
+                  </div>
+                  <div id="job-slot-tuningXml-status" style="font-size: 9px; font-weight: bold; color: #ef4444; text-transform: uppercase; background: rgba(239, 68, 68, 0.1); padding: 2px 6px; border-radius: 4px;">Missing</div>
+                </div>
+              </div>
+              
+              <div style="display: flex; flex-direction: column; gap: 6px; flex-grow: 1; min-height: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span style="font-size: 10px; font-weight: bold; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px;">Decompiler & Compiler Outputs</span>
+                  <span id="job-compiler-indicator" style="font-size: 9px; color: #64748b;">Idle</span>
+                </div>
+                <div id="job-compiler-console" style="flex-grow: 1; background: #05070f; border: 1px solid rgba(168, 85, 247, 0.15); border-radius: 6px; font-family: var(--font-mono); font-size: 9px; padding: 10px; color: #64748b; overflow-y: auto; display: flex; flex-direction: column; gap: 4px; min-height: 80px; max-height: 120px; box-shadow: inset 0 0 10px rgba(0,0,0,0.8);">
+                  <div style="color: #475569;">[SYS] Compiler terminal initialized. Awaiting source buffer files...</div>
+                </div>
+              </div>
+              
+              <button class="job-btn-action" id="btn-convert-job-mod" onclick="startJobModConversion()" disabled>
+                Compile Mod Integration
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+<!-- WARSTOCK -->
+<div class="win" id="win-warstock" style="top:70px;left:70px;width:750px;height:520px;">
+  <div class="win-titlebar" onmousedown="startDrag(event,'win-warstock')" style="background: rgba(40, 50, 30, 0.9); border-bottom: 1px solid #7d8a36;">
+    <span class="win-icon" style="color: #c4d683;">🛡️</span>
+    <span class="win-title" style="color: #c4d683;">Warstock Cache & Carry</span>
+    <div class="win-ctrls">
+      <button class="wbtn" onclick="minimizeWin('warstock')">─</button>
+      <button class="wbtn" onclick="maximizeWin('win-warstock')">⬜</button>
+      <button class="wbtn close" onclick="closeApp('warstock')">✕</button>
+    </div>
+  </div>
+  <div class="win-body warstock-body" style="background: #11140e; display: flex; color: #a6b571; height: 100%;">
+    <div class="warstock-catalog-container" style="flex-grow: 1; padding: 20px; overflow-y: auto;">
+      <div class="warstock-header" style="margin-bottom: 20px; text-align: center; border-bottom: 2px solid #364020; padding-bottom: 15px;">
+          <h2 style="color: #c4d683; font-size: 24px; margin: 0; text-transform: uppercase; letter-spacing: 2px;">Warstock Cache & Carry</h2>
+          <p style="color: #8c9e47; margin-top: 5px;">Premium Military Hardware & Tactical Gear</p>
+      </div>
+      <div class="warstock-grid" id="warstock-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 15px;">
+          <!-- Populated by JS -->
+      </div>
+    </div>
+    <div class="warstock-cart-sidebar" style="width: 250px; background: rgba(20, 25, 15, 0.95); border-left: 1px solid #364020; display: flex; flex-direction: column; padding: 15px;">
+      <h3 style="color: #c4d683; border-bottom: 1px solid #364020; padding-bottom: 10px; margin-top: 0;">Requisition Cart</h3>
+      <div id="warstock-cart-items" style="flex-grow: 1; overflow-y: auto; margin-top: 10px; margin-bottom: 15px;">
+          <!-- Populated by JS -->
+      </div>
+      <div class="warstock-cart-footer" style="border-top: 1px solid #364020; padding-top: 15px;">
+          <div style="display: flex; justify-content: space-between; color: #c4d683; font-weight: bold; margin-bottom: 15px; font-size: 16px;">
+              <span>TOTAL:</span>
+              <span id="warstock-cart-total">$0</span>
+          </div>
+          <button onclick="checkoutWarstock()" style="width: 100%; padding: 12px; background: #364020; color: #c4d683; border: 1px solid #7d8a36; cursor: pointer; font-weight: bold; text-transform: uppercase; border-radius: 4px; transition: all 0.2s;">Secure Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BUSINESS HUB -->
+<div class="win" id="win-business" style="top:90px;left:90px;width:750px;height:520px;">
+  <div class="win-titlebar" onmousedown="startDrag(event,'win-business')" style="background: rgba(20, 20, 20, 0.95); border-bottom: 2px solid #b89345;">
+    <span class="win-icon" style="color: #b89345;">🏢</span>
+    <span class="win-title" style="color: #b89345;">SECUROSERV BUSINESS HUB</span>
+    <div class="win-ctrls">
+      <button class="wbtn" onclick="minimizeWin('business')">─</button>
+      <button class="wbtn" onclick="maximizeWin('win-business')">⬜</button>
+      <button class="wbtn close" onclick="closeApp('business')">✕</button>
+    </div>
+  </div>
+  <div class="win-body business-body" style="background: #0d0d0d; display: flex; color: #e5e5e5; height: 100%;">
+    <div class="business-sidebar" style="width: 200px; background: rgba(15, 15, 15, 0.95); border-right: 1px solid #333; display: flex; flex-direction: column;">
+      <div style="padding: 20px; text-align: center; border-bottom: 1px solid #333;">
+          <div style="font-size: 30px; margin-bottom: 10px;">🌐</div>
+          <div style="font-weight: bold; letter-spacing: 2px; color: #b89345;">NETWORK</div>
+      </div>
+      <div class="business-nav" id="business-nav-list" style="padding: 10px 0; overflow-y: auto; flex-grow: 1;">
+          <!-- Populated by JS -->
+      </div>
+    </div>
+    <div class="business-content" style="flex-grow: 1; padding: 25px; overflow-y: auto; position: relative;">
+      <div id="business-loader" style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(13,13,13,0.8); display:flex; justify-content:center; align-items:center; z-index:10; display:none;">
+          <div style="color: #b89345; font-size: 20px;">SYNCING...</div>
+      </div>
+      
+      <div id="business-dashboard" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; border-bottom: 1px solid #333; padding-bottom: 20px;">
+              <div>
+                  <h2 id="biz-title" style="margin: 0 0 5px 0; color: #fff; font-size: 24px; text-transform: uppercase;">Business Name</h2>
+                  <div id="biz-status" style="color: #4ade80; font-weight: bold; font-size: 14px;">ACTIVE</div>
+              </div>
+              <div style="text-align: right;">
+                  <div style="font-size: 12px; color: #888;">LIFETIME EARNINGS</div>
+                  <div id="biz-earnings" style="color: #b89345; font-size: 20px; font-weight: bold;">$0</div>
+              </div>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px;">
+              <div style="background: rgba(25, 25, 25, 0.8); border: 1px solid #333; border-radius: 4px; padding: 20px;">
+                  <h3 style="margin: 0 0 15px 0; color: #b89345; font-size: 14px;">SUPPLIES</h3>
+                  <div style="height: 10px; background: #222; border-radius: 5px; overflow: hidden; margin-bottom: 10px;">
+                      <div id="biz-supplies-bar" style="height: 100%; background: #3b82f6; width: 0%;"></div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;">
+                      <span>Level</span>
+                      <span id="biz-supplies-text">0%</span>
+                  </div>
+                  <button onclick="buySupplies()" style="width: 100%; padding: 8px; margin-top: 15px; background: transparent; border: 1px solid #3b82f6; color: #3b82f6; border-radius: 4px; cursor: pointer; transition: 0.2s;">BUY SUPPLIES ($75,000)</button>
+              </div>
+              
+              <div style="background: rgba(25, 25, 25, 0.8); border: 1px solid #333; border-radius: 4px; padding: 20px;">
+                  <h3 style="margin: 0 0 15px 0; color: #b89345; font-size: 14px;">STOCK</h3>
+                  <div style="height: 10px; background: #222; border-radius: 5px; overflow: hidden; margin-bottom: 10px;">
+                      <div id="biz-stock-bar" style="height: 100%; background: #4ade80; width: 0%;"></div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888;">
+                      <span>Value</span>
+                      <span id="biz-stock-value" style="color: #4ade80;">$0</span>
+                  </div>
+                  <button onclick="sellStock()" style="width: 100%; padding: 8px; margin-top: 15px; background: #4ade80; border: none; color: #000; font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.2s;">SELL STOCK</button>
+              </div>
+          </div>
+      </div>
+      
+      <div id="business-empty" style="text-align: center; padding-top: 100px; color: #666;">
+          <div style="font-size: 40px; margin-bottom: 15px;">🏢</div>
+          <h3>NO BUSINESS SELECTED</h3>
+          <p>Select a node from the network to access its secure terminal.</p>
+      </div>
+    </div>
+  </div>
+</div>

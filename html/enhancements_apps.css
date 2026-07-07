@@ -1,0 +1,775 @@
+/* ============================================================
+   ENHANCEMENTS — Built-in App CSS Overrides
+   Premium micro-interactions, glows, and depth effects
+   for Browser, Notepad, Calculator, File Explorer,
+   Task Manager, Settings, and Minesweeper
+   ============================================================ */
+
+
+/* ═══════════════════════════════════════════════════════════════
+   §1  BROWSER APP
+   Tab underline animations, URL bar glow, news card lifts,
+   tag pulses, hero shimmer
+   ═══════════════════════════════════════════════════════════════ */
+
+/* --- Tab underline slide animation --- */
+.br-tab {
+  position: relative;
+  transition: background 0.12s, color 0.2s;
+}
+
+.br-tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--accent2);
+  border-radius: 1px 1px 0 0;
+  transition: width 0.28s cubic-bezier(0.22, 0.61, 0.36, 1),
+              left 0.28s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.br-tab.active::after {
+  width: 60%;
+  left: 20%;
+}
+
+/* Active tab subtle glow below text */
+.br-tab.active {
+  text-shadow: 0 0 8px rgba(96, 205, 255, 0.45),
+               0 0 18px rgba(96, 205, 255, 0.15);
+}
+
+/* --- URL bar glow on focus with animated gradient border --- */
+.br-url {
+  transition: border-color 0.25s, box-shadow 0.3s, width 0.3s ease;
+  background-clip: padding-box;
+}
+
+.br-url:focus {
+  border-color: var(--accent2);
+  box-shadow: 0 0 0 2px rgba(96, 205, 255, 0.12),
+              0 0 14px rgba(96, 205, 255, 0.15),
+              inset 0 0 6px rgba(96, 205, 255, 0.05);
+  flex-grow: 1.04;
+}
+
+/* --- Navigation buttons hover scale + glow ring --- */
+.br-btn {
+  transition: background 0.12s, transform 0.18s ease, box-shadow 0.22s ease;
+}
+
+.br-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: scale(1.12);
+  box-shadow: 0 0 0 2px rgba(96, 205, 255, 0.18),
+              0 0 10px rgba(96, 205, 255, 0.12);
+}
+
+.br-btn:active {
+  transform: scale(0.95);
+}
+
+/* --- News cards hover lift with directional shadow --- */
+.news-card {
+  transition: background 0.15s, border-color 0.15s,
+              transform 0.22s ease, box-shadow 0.25s ease;
+}
+
+.news-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35),
+              0 4px 8px rgba(0, 0, 0, 0.2);
+  border-color: var(--border-bright);
+}
+
+/* --- Tags subtle pulse and hover scale --- */
+@keyframes tagPulse {
+  0%, 100% { opacity: 0.85; }
+  50%      { opacity: 1; }
+}
+
+.news-card .tag {
+  animation: tagPulse 3s ease-in-out infinite;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.news-card .tag:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 8px rgba(96, 205, 255, 0.15);
+}
+
+/* --- Page hero animated gradient border shimmer --- */
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+}
+
+.page-hero::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(96, 205, 255, 0.3) 25%,
+    rgba(0, 120, 212, 0.4) 50%,
+    rgba(96, 205, 255, 0.3) 75%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: heroShimmer 4s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes heroShimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   §2  NOTEPAD APP
+   Line highlights, toolbar gradient, menu underlines,
+   save button glow, status bar accent
+   ═══════════════════════════════════════════════════════════════ */
+
+/* --- Toolbar subtle gradient background --- */
+.notepad-toolbar {
+  background: linear-gradient(180deg,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.12) 100%
+  );
+}
+
+/* --- Menu items underline slide on hover --- */
+.ntb {
+  position: relative;
+  transition: background 0.12s, color 0.18s;
+}
+
+.ntb::after {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  left: 50%;
+  width: 0;
+  height: 1.5px;
+  background: var(--accent2);
+  border-radius: 1px;
+  transition: width 0.22s ease, left 0.22s ease;
+}
+
+.ntb:hover::after {
+  width: 70%;
+  left: 15%;
+}
+
+/* --- Textarea line-highlight stripes --- */
+.notepad-area {
+  background-image: repeating-linear-gradient(
+    180deg,
+    transparent 0px,
+    transparent 21px,
+    rgba(255, 255, 255, 0.015) 21px,
+    rgba(255, 255, 255, 0.015) 42px
+  );
+  background-size: 100% 42px;
+  background-attachment: local;
+}
+
+/* --- Save button green glow pulse on hover --- */
+@keyframes saveGlow {
+  0%, 100% { box-shadow: 0 0 6px rgba(34, 197, 94, 0.3); }
+  50%      { box-shadow: 0 0 14px rgba(34, 197, 94, 0.55), 0 0 28px rgba(34, 197, 94, 0.15); }
+}
+
+#np-save-btn {
+  transition: background 0.12s, color 0.18s, box-shadow 0.3s;
+}
+
+#np-save-btn:hover {
+  background: rgba(34, 197, 94, 0.18);
+  color: #4ade80;
+  animation: saveGlow 1.5s ease-in-out infinite;
+}
+
+/* --- Status bar top gradient line + text transitions --- */
+.notepad-status {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.notepad-status::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(96, 205, 255, 0.25) 30%,
+    rgba(0, 120, 212, 0.3) 50%,
+    rgba(96, 205, 255, 0.25) 70%,
+    transparent 100%
+  );
+}
+
+.notepad-status span {
+  transition: opacity 0.25s ease, color 0.25s ease;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   §3  CALCULATOR APP
+   LCD scanlines, digital glow, 3D button presses,
+   operator glow, equals shimmer, clear red glow
+   ═══════════════════════════════════════════════════════════════ */
+
+/* --- Calculator body inner glow --- */
+.calc-body {
+  position: relative;
+}
+
+.calc-body::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 30px rgba(0, 120, 212, 0.06);
+  pointer-events: none;
+}
+
+/* --- Display LCD scanlines + subtle glow --- */
+.calc-display {
+  position: relative;
+  overflow: hidden;
+  background: rgba(0, 4, 12, 0.45);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.calc-display::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(255, 255, 255, 0.015) 2px,
+    rgba(255, 255, 255, 0.015) 4px
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* --- Number display stronger glow --- */
+.calc-num {
+  font-weight: 400;
+  text-shadow:
+    0 0 6px rgba(96, 205, 255, 0.5),
+    0 0 16px rgba(96, 205, 255, 0.2),
+    0 0 30px rgba(96, 205, 255, 0.08);
+  position: relative;
+  z-index: 1;
+}
+
+.calc-expr {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Buttons 3D press depth effect --- */
+.cbtn {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25),
+              0 1px 1px rgba(0, 0, 0, 0.15);
+  transition: background 0.12s, transform 0.08s, box-shadow 0.12s;
+}
+
+.cbtn:active {
+  transform: translateY(1px) scale(0.97);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.35),
+              0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Operator buttons glow pulse on hover --- */
+.cbtn.op {
+  transition: background 0.12s, transform 0.08s, box-shadow 0.25s;
+}
+
+.cbtn.op:hover {
+  box-shadow: 0 0 10px rgba(0, 120, 212, 0.3),
+              0 0 20px rgba(0, 120, 212, 0.12),
+              0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Equals button shimmer sweep --- */
+.cbtn.eq {
+  position: relative;
+  overflow: hidden;
+  transition: background 0.12s, transform 0.08s, box-shadow 0.2s;
+}
+
+.cbtn.eq::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 40%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.15) 60%,
+    transparent 100%
+  );
+  transition: none;
+  animation: eqShimmer 3.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes eqShimmer {
+  0%   { left: -100%; }
+  40%  { left: 200%; }
+  100% { left: 200%; }
+}
+
+/* --- Clear button red glow on hover --- */
+.cbtn.clr {
+  transition: background 0.12s, transform 0.08s, box-shadow 0.25s;
+}
+
+.cbtn.clr:hover {
+  box-shadow: 0 0 10px rgba(255, 80, 80, 0.35),
+              0 0 22px rgba(255, 50, 50, 0.15),
+              0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   §4  FILE EXPLORER
+   Sidebar indicators, file hover float, path breadcrumbs,
+   nav glow ring, staggered file entrance
+   ═══════════════════════════════════════════════════════════════ */
+
+/* --- Sidebar items left border indicator --- */
+.fe-side-item {
+  position: relative;
+  transition: background 0.12s, color 0.18s;
+  padding-left: 12px;
+}
+
+.fe-side-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.5px;
+  height: 0;
+  background: var(--accent2);
+  border-radius: 0 2px 2px 0;
+  transition: height 0.22s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.fe-side-item:hover::before,
+.fe-side-item.active::before {
+  height: 60%;
+}
+
+/* Active sidebar icon emoji glow */
+.fe-side-item.active {
+  text-shadow: 0 0 10px rgba(96, 205, 255, 0.55),
+               0 0 20px rgba(96, 205, 255, 0.2);
+}
+
+/* --- File icons hover float + shadow lift + scale --- */
+.fe-file {
+  transition: background 0.12s, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.fe-file:hover {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.fe-file:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: none;
+}
+
+/* --- Path bar breadcrumb style --- */
+.fe-path {
+  position: relative;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.fe-path:focus {
+  border-color: var(--accent2);
+  box-shadow: 0 0 0 2px rgba(96, 205, 255, 0.1),
+              0 0 10px rgba(96, 205, 255, 0.08);
+}
+
+/* --- Navigation buttons hover glow ring --- */
+.fe-nav {
+  transition: background 0.12s, transform 0.18s ease, box-shadow 0.22s ease;
+}
+
+.fe-nav:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 2px rgba(96, 205, 255, 0.15),
+              0 0 8px rgba(96, 205, 255, 0.1);
+}
+
+.fe-nav:active {
+  transform: scale(0.93);
+}
+
+/* --- File grid staggered entrance animation --- */
+@keyframes fileEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.fe-file {
+  animation: fileEntrance 0.3s ease backwards;
+}
+
+.fe-file:nth-child(1)  { animation-delay: 0.02s; }
+.fe-file:nth-child(2)  { animation-delay: 0.04s; }
+.fe-file:nth-child(3)  { animation-delay: 0.06s; }
+.fe-file:nth-child(4)  { animation-delay: 0.08s; }
+.fe-file:nth-child(5)  { animation-delay: 0.10s; }
+.fe-file:nth-child(6)  { animation-delay: 0.12s; }
+.fe-file:nth-child(7)  { animation-delay: 0.14s; }
+.fe-file:nth-child(8)  { animation-delay: 0.16s; }
+.fe-file:nth-child(9)  { animation-delay: 0.18s; }
+.fe-file:nth-child(10) { animation-delay: 0.20s; }
+.fe-file:nth-child(11) { animation-delay: 0.22s; }
+.fe-file:nth-child(12) { animation-delay: 0.24s; }
+
+
+/* ═══════════════════════════════════════════════════════════════
+   §5  TASK MANAGER
+   Tab underline animation, usage bar shimmer,
+   high usage pulse, header gradient, row hover accent
+   ═══════════════════════════════════════════════════════════════ */
+
+/* --- Tab slide-in underline animation --- */
+.tm-tab {
+  position: relative;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-bottom-color 0.01s;
+}
+
+.tm-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--accent2);
+  border-radius: 1px 1px 0 0;
+  transition: width 0.25s cubic-bezier(0.22, 0.61, 0.36, 1),
+              left 0.25s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.tm-tab.active {
+  border-bottom-color: transparent;
+}
+
+.tm-tab.active::after {
+  width: 80%;
+  left: 10%;
+}
+
+/* --- Usage bars animated gradient shimmer --- */
+@keyframes usageShimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.usage-fill {
+  background-size: 200% 100%;
+  position: relative;
+}
+
+.usage-low {
+  background: linear-gradient(90deg,
+    #22c55e 0%, #4ade80 25%, #86efac 50%, #4ade80 75%, #22c55e 100%
+  );
+  background-size: 200% 100%;
+  animation: usageShimmer 3s linear infinite;
+}
+
+.usage-mid {
+  background: linear-gradient(90deg,
+    #f59e0b 0%, #fbbf24 25%, #fde68a 50%, #fbbf24 75%, #f59e0b 100%
+  );
+  background-size: 200% 100%;
+  animation: usageShimmer 3s linear infinite;
+}
+
+.usage-high {
+  background: linear-gradient(90deg,
+    #ef4444 0%, #f87171 25%, #fca5a5 50%, #f87171 75%, #ef4444 100%
+  );
+  background-size: 200% 100%;
+  animation: usageShimmer 2s linear infinite;
+}
+
+/* --- High usage rows subtle red pulse --- */
+@keyframes highUsagePulse {
+  0%, 100% { background: transparent; }
+  50%      { background: rgba(239, 68, 68, 0.05); }
+}
+
+.tm-table tr:has(.usage-high) td {
+  animation: highUsagePulse 2.5s ease-in-out infinite;
+}
+
+/* --- Table header gradient bottom line --- */
+.tm-table th {
+  border-bottom: none;
+  position: relative;
+}
+
+.tm-table th::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(96, 205, 255, 0.2) 20%,
+    rgba(0, 120, 212, 0.3) 50%,
+    rgba(96, 205, 255, 0.2) 80%,
+    transparent 100%
+  );
+}
+
+/* --- Table rows smoother hover with left border accent --- */
+.tm-table td {
+  transition: background 0.18s ease, box-shadow 0.18s ease;
+  position: relative;
+}
+
+.tm-table tr:hover td:first-child {
+  box-shadow: inset 3px 0 0 var(--accent2);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   §6  SETTINGS APP
+   Nav icon glow, active border, elastic toggles,
+   wallpaper selection ring, row hover lift, gradient titles
+   ═══════════════════════════════════════════════════════════════ */
+
+/* --- Navigation items emoji icon glow on hover/active --- */
+.sn-item {
+  transition: background 0.12s, color 0.18s, text-shadow 0.25s;
+}
+
+.sn-item:hover,
+.sn-item.active {
+  text-shadow: 0 0 10px rgba(96, 205, 255, 0.45),
+               0 0 22px rgba(96, 205, 255, 0.15);
+}
+
+/* --- Active nav left border indicator with glow --- */
+.sn-item.active {
+  position: relative;
+  box-shadow: inset 3px 0 0 var(--accent2),
+              inset 6px 0 12px rgba(96, 205, 255, 0.06);
+}
+
+/* --- Toggle switches elastic bounce --- */
+.toggle-slider {
+  transition: background 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.toggle-slider::before {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+/* --- Toggle checked glow --- */
+.toggle input:checked + .toggle-slider {
+  box-shadow: 0 0 8px rgba(0, 120, 212, 0.4),
+              0 0 18px rgba(0, 120, 212, 0.15);
+}
+
+/* --- Wallpaper options selection ring glow animation --- */
+@keyframes wpSelectionGlow {
+  0%, 100% { box-shadow: 0 0 0 2px rgba(96, 205, 255, 0.5), 0 0 8px rgba(96, 205, 255, 0.2); }
+  50%      { box-shadow: 0 0 0 2px rgba(96, 205, 255, 0.7), 0 0 16px rgba(96, 205, 255, 0.35); }
+}
+
+.wp-option.selected {
+  animation: wpSelectionGlow 2.5s ease-in-out infinite;
+  border-color: var(--accent2);
+}
+
+.wp-option {
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.25s;
+}
+
+.wp-option:hover {
+  box-shadow: 0 0 12px rgba(96, 205, 255, 0.15);
+}
+
+/* --- Settings rows hover lift with subtle shadow --- */
+.s-row {
+  transition: background 0.15s, border-color 0.15s,
+              transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.s-row:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  border-color: var(--border-bright);
+}
+
+/* --- Section titles gradient text effect --- */
+.s-section-title {
+  background: linear-gradient(135deg, var(--accent2) 0%, #a78bfa 60%, var(--accent2) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientText 5s linear infinite;
+}
+
+@keyframes gradientText {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   §7  MINESWEEPER
+   3D cells, explosion effect, face bounce, LED counters,
+   grid gap glow, raised unrevealed cells
+   ═══════════════════════════════════════════════════════════════ */
+
+/* --- Unrevealed cells 3D raised appearance --- */
+.ms-cell {
+  box-shadow:
+    1px 1px 0 rgba(0, 0, 0, 0.3),
+    -1px -1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: background 0.1s, transform 0.1s, box-shadow 0.15s;
+}
+
+.ms-cell:hover {
+  box-shadow:
+    1px 1px 0 rgba(0, 0, 0, 0.3),
+    -1px -1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 6px rgba(96, 205, 255, 0.12);
+}
+
+/* --- Revealed cells 3D pressed depth --- */
+.ms-cell.revealed {
+  background: rgba(0, 0, 0, 0.25);
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.4),
+              inset 0 0 1px rgba(0, 0, 0, 0.2);
+  cursor: default;
+}
+
+.ms-cell.revealed:hover {
+  box-shadow: inset 1px 1px 3px rgba(0, 0, 0, 0.4),
+              inset 0 0 1px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Mine hit explosion effect --- */
+@keyframes mineExplosion {
+  0% {
+    background: radial-gradient(circle, rgba(255, 100, 50, 0.8) 0%, rgba(255, 50, 50, 0.4) 40%, transparent 70%);
+    box-shadow: 0 0 0 0 rgba(255, 80, 50, 0.5);
+  }
+  30% {
+    background: radial-gradient(circle, rgba(255, 200, 50, 0.6) 0%, rgba(255, 80, 30, 0.4) 50%, transparent 80%);
+    box-shadow: 0 0 0 4px rgba(255, 80, 50, 0.3);
+  }
+  100% {
+    background: rgba(255, 50, 50, 0.35);
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.ms-cell.mine-hit {
+  animation: mineExplosion 0.6s ease-out forwards;
+}
+
+/* --- Face button bounce on hover + glow ring --- */
+.ms-reset {
+  transition: background 0.12s, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.2s ease;
+}
+
+.ms-reset:hover {
+  transform: scale(1.12);
+  box-shadow: 0 0 0 2px rgba(96, 205, 255, 0.2),
+              0 0 12px rgba(96, 205, 255, 0.15);
+}
+
+.ms-reset:active {
+  transform: scale(0.92);
+}
+
+/* --- Counters retro LED glow --- */
+.ms-counter {
+  letter-spacing: 2px;
+  text-shadow:
+    0 0 4px rgba(255, 68, 68, 0.7),
+    0 0 10px rgba(255, 68, 68, 0.4),
+    0 0 20px rgba(255, 50, 50, 0.2),
+    0 0 35px rgba(255, 30, 30, 0.1);
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Grid subtle gap glow --- */
+.ms-grid {
+  gap: 2px;
+  padding: 2px;
+  background: rgba(96, 205, 255, 0.02);
+  border-radius: 4px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2),
+              0 0 6px rgba(96, 205, 255, 0.04);
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   §  REDUCED MOTION — respect user preferences
+   ═══════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

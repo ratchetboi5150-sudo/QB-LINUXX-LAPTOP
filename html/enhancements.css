@@ -1,0 +1,9 @@
+/* ============================================================
+   HOME OS — ENHANCEMENTS WRAPPER
+   Loads modular CSS enhancements for Core OS and all apps
+   ============================================================ */
+
+@import url('enhancements_core.css');
+@import url('enhancements_apps.css');
+@import url('enhancements_media.css');
+@import url('enhancements_trade.css');

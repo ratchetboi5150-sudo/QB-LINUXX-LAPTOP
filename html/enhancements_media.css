@@ -1,0 +1,960 @@
+/* ═══════════════════════════════════════════════════════════════════
+   MEDIA & SOCIAL APP CSS ENHANCEMENTS
+   Premium visual overhaul for: Glitch, Live TV, CCTV, UNO, PicChat
+   ═══════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────────
+   §1  GLITCH STREAMING APP ENHANCEMENTS
+   ───────────────────────────────────────────────────────────────── */
+
+/* ── 1.1 Logo: intense multi-step glitch + scanline pseudo-element ── */
+.glitch-logo {
+  position: relative;
+  text-shadow:
+    2px 0 0 var(--glitch-magenta),
+    -2px 0 0 var(--glitch-cyan),
+    0 2px 0 rgba(145, 70, 255, 0.3);
+  animation: enh-logo-glitch 3s steps(1) infinite;
+}
+
+@keyframes enh-logo-glitch {
+  0%   { text-shadow:  2px 0 0 var(--glitch-magenta), -2px 0 0 var(--glitch-cyan); }
+  5%   { text-shadow: -3px 1px 0 var(--glitch-magenta),  3px -1px 0 var(--glitch-cyan); }
+  10%  { text-shadow:  1px -2px 0 var(--glitch-magenta), -1px 2px 0 var(--glitch-cyan); }
+  15%  { text-shadow:  2px 0 0 var(--glitch-magenta), -2px 0 0 var(--glitch-cyan); }
+  20%  { text-shadow: -2px 3px 0 var(--glitch-magenta),  2px -3px 0 var(--glitch-cyan); }
+  22%  { text-shadow:  4px -1px 0 var(--glitch-magenta), -4px 1px 0 var(--glitch-cyan); }
+  25%  { text-shadow:  2px 0 0 var(--glitch-magenta), -2px 0 0 var(--glitch-cyan); }
+  50%  { text-shadow: -1px 1px 0 var(--glitch-magenta),  1px -1px 0 var(--glitch-cyan); }
+  52%  { text-shadow:  3px 2px 0 var(--glitch-magenta), -3px -2px 0 var(--glitch-cyan); }
+  55%  { text-shadow: -1px 1px 0 var(--glitch-magenta),  1px -1px 0 var(--glitch-cyan); }
+  75%  { text-shadow:  0px -3px 0 var(--glitch-magenta),  0px 3px 0 var(--glitch-cyan); }
+  77%  { text-shadow: -5px 0 0 var(--glitch-magenta),  5px 0 0 var(--glitch-cyan); }
+  80%  { text-shadow:  2px 0 0 var(--glitch-magenta), -2px 0 0 var(--glitch-cyan); }
+  100% { text-shadow:  2px 0 0 var(--glitch-magenta), -2px 0 0 var(--glitch-cyan); }
+}
+
+/* Scanline pseudo-element across logo */
+.glitch-logo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.12) 2px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+
+/* ── 1.2 Category cards: animated gradient border + thumbnail zoom ── */
+.glitch-category-card {
+  position: relative;
+  overflow: hidden;
+  background-clip: padding-box;
+}
+
+.glitch-category-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(
+    from 0deg,
+    var(--glitch-purple),
+    var(--glitch-cyan),
+    var(--glitch-magenta),
+    var(--glitch-purple)
+  );
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  animation: enh-gradient-spin 3s linear infinite paused;
+}
+
+.glitch-category-card:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+@keyframes enh-gradient-spin {
+  to { transform: rotate(360deg); }
+}
+
+.glitch-category-card .cat-icon {
+  transition: transform 0.3s ease;
+}
+
+.glitch-category-card:hover .cat-icon {
+  transform: scale(1.15);
+}
+
+
+/* ── 1.3 Stream cards: thumbnail zoom on hover ── */
+.glitch-stream-card {
+  overflow: hidden;
+}
+
+.glitch-stream-card .glitch-card-thumbnail img,
+.glitch-stream-card .glitch-card-thumbnail {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.glitch-stream-card:hover .glitch-card-thumbnail {
+  transform: scale(1.05);
+}
+
+
+/* ── 1.4 Card thumbnails: subtle static noise overlay ── */
+.glitch-card-thumbnail::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 150px 150px;
+  pointer-events: none;
+  opacity: 0.5;
+  animation: enh-static-shift 0.15s steps(3) infinite;
+  z-index: 1;
+}
+
+@keyframes enh-static-shift {
+  0%   { transform: translate(0, 0); }
+  33%  { transform: translate(-2px, 1px); }
+  66%  { transform: translate(1px, -2px); }
+  100% { transform: translate(0, 0); }
+}
+
+
+/* ── 1.5 Live indicator: expanding ring pulse ── */
+.gp-live-indicator {
+  position: relative;
+  overflow: visible;
+}
+
+.gp-live-indicator::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border: 2px solid #eb0400;
+  border-radius: 5px;
+  animation: enh-live-ring-pulse 1.8s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes enh-live-ring-pulse {
+  0%   { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+
+/* ── 1.6 Chat messages: slide-in from right ── */
+.glitch-chat-entry {
+  animation: enh-chat-slide-in 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes enh-chat-slide-in {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+/* ── 1.7 Follow button: smooth color flip ── */
+.glitch-follow-btn {
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease;
+}
+
+.glitch-follow-btn:hover {
+  box-shadow: 0 0 14px var(--glitch-purple-glow);
+}
+
+.glitch-follow-btn.following {
+  transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glitch-follow-btn.following:hover {
+  box-shadow: 0 0 12px rgba(255, 79, 79, 0.25);
+}
+
+
+/* ── 1.8 Banner: animated gradient overlay + parallax feel ── */
+.glitch-banner {
+  background-size: 200% 200%;
+  animation: enh-banner-gradient 8s ease infinite;
+}
+
+@keyframes enh-banner-gradient {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.glitch-banner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(0, 240, 255, 0.08) 0%,
+    transparent 40%,
+    rgba(255, 0, 127, 0.08) 70%,
+    transparent 100%
+  );
+  background-size: 300% 300%;
+  animation: enh-banner-shimmer 6s ease infinite;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+@keyframes enh-banner-shimmer {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.glitch-banner h1,
+.glitch-banner p {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ── 1.9 Nav items: icon glow on active/hover ── */
+.glitch-nav-item:hover .glitch-nav-icon,
+.glitch-nav-item:hover i,
+.glitch-nav-item:hover span:first-child {
+  filter: drop-shadow(0 0 4px var(--glitch-purple-glow));
+}
+
+.glitch-nav-item.active .glitch-nav-icon,
+.glitch-nav-item.active i,
+.glitch-nav-item.active span:first-child {
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
+}
+
+
+/* ── 1.10 Dashboard form: input focus glow ── */
+.g-form-group input:focus,
+.g-form-group select:focus {
+  border-color: var(--glitch-purple);
+  box-shadow: 0 0 8px var(--glitch-purple-glow), 0 0 2px var(--glitch-purple-glow) inset;
+}
+
+.glitch-chat-input-wrap input:focus {
+  box-shadow: 0 0 8px var(--glitch-purple-glow);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   §2  LIVE TV APP ENHANCEMENTS
+   ───────────────────────────────────────────────────────────────── */
+
+/* ── 2.1 Active channel: Netflix-style red accent glow ── */
+.livetv-channel-item.active {
+  box-shadow:
+    0 0 8px rgba(229, 9, 20, 0.3),
+    0 0 20px rgba(229, 9, 20, 0.15),
+    inset 0 0 12px rgba(229, 9, 20, 0.05);
+}
+
+
+/* ── 2.2 Placeholder: static noise background animation ── */
+.livetv-placeholder {
+  position: relative;
+}
+
+.livetv-placeholder::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  opacity: 0.4;
+  animation: enh-tv-static 0.12s steps(5) infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes enh-tv-static {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-3px, 2px); }
+  50%  { transform: translate(2px, -3px); }
+  75%  { transform: translate(-1px, 3px); }
+  100% { transform: translate(0, 0); }
+}
+
+.livetv-placeholder > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ── 2.3 Placeholder icon: stronger pulse with glow shadow ── */
+.livetv-placeholder-icon {
+  animation: enh-tvpulse-glow 2s infinite ease-in-out;
+}
+
+@keyframes enh-tvpulse-glow {
+  0%   {
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px rgba(229, 9, 20, 0.3));
+  }
+  50%  {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 22px rgba(229, 9, 20, 0.6)) drop-shadow(0 0 40px rgba(229, 9, 20, 0.2));
+  }
+  100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 10px rgba(229, 9, 20, 0.3));
+  }
+}
+
+
+/* ── 2.4 Channel items: slide-in hover indicator from left ── */
+.livetv-channel-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  width: 3px;
+  height: 60%;
+  background: var(--livetv-accent);
+  border-radius: 0 3px 3px 0;
+  transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 0 8px rgba(229, 9, 20, 0.4);
+}
+
+.livetv-channel-item:hover::before,
+.livetv-channel-item.active::before {
+  transform: translateY(-50%) scaleY(1);
+}
+
+
+/* ── 2.5 Add Channel modal: backdrop blur increase on open ── */
+.livetv-modal {
+  backdrop-filter: blur(0px);
+  transition: opacity 0.2s ease, backdrop-filter 0.4s ease;
+}
+
+.livetv-modal.show {
+  backdrop-filter: blur(14px);
+}
+
+
+/* ── 2.6 Logo: subtle red glow accent ── */
+.livetv-logo {
+  text-shadow: 0 0 12px rgba(229, 9, 20, 0.25);
+}
+
+.livetv-logo-icon {
+  filter: drop-shadow(0 0 6px rgba(229, 9, 20, 0.4));
+}
+
+
+/* ── 2.7 Category items: smooth left-border expansion on active ── */
+.livetv-cat-item {
+  border-left: 0px solid transparent;
+  transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.livetv-cat-item.active {
+  border-left: 3px solid var(--livetv-accent);
+  box-shadow: inset 4px 0 12px rgba(229, 9, 20, 0.08);
+}
+
+
+/* ── 2.8 Search input: focus glow border ── */
+.livetv-search {
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.livetv-search:focus-within {
+  border-color: var(--livetv-accent);
+  box-shadow: 0 0 10px rgba(229, 9, 20, 0.2), 0 0 3px rgba(229, 9, 20, 0.15) inset;
+}
+
+.livetv-form-group input:focus {
+  border-color: var(--livetv-accent);
+  box-shadow: 0 0 8px rgba(229, 9, 20, 0.2);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   §3  CCTV MONITOR APP ENHANCEMENTS
+   ───────────────────────────────────────────────────────────────── */
+
+/* ── 3.1 Viewport: subtle CRT barrel distortion feel ── */
+.cctv-viewport {
+  border-radius: 6px;
+}
+
+.cctv-viewport canvas {
+  border-radius: 4px;
+}
+
+
+/* ── 3.2 HUD text: stronger green terminal glow (bloom) ── */
+.cctv-overlay {
+  text-shadow:
+    0 0 4px rgba(74, 222, 128, 0.9),
+    0 0 10px rgba(74, 222, 128, 0.6),
+    0 0 20px rgba(74, 222, 128, 0.35),
+    0 0 40px rgba(74, 222, 128, 0.15);
+}
+
+.cctv-hud-top,
+.cctv-hud-bottom {
+  text-shadow: inherit;
+}
+
+
+/* ── 3.3 REC indicator: double ring pulse effect ── */
+.cctv-rec {
+  position: relative;
+}
+
+.rec-dot {
+  position: relative;
+}
+
+.rec-dot::before,
+.rec-dot::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 2px solid #ef4444;
+  border-radius: 50%;
+  animation: enh-rec-ring-1 2s ease-out infinite;
+  pointer-events: none;
+}
+
+.rec-dot::after {
+  inset: -4px;
+  animation: enh-rec-ring-2 2s ease-out infinite 0.6s;
+}
+
+@keyframes enh-rec-ring-1 {
+  0%   { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes enh-rec-ring-2 {
+  0%   { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(3); opacity: 0; }
+}
+
+
+/* ── 3.4 Camera list: active state left-border glow animation ── */
+.cctv-item.active {
+  border-left-color: #60a5fa;
+  box-shadow: inset 4px 0 14px rgba(96, 165, 250, 0.12);
+  animation: enh-cctv-active-border 2s ease-in-out infinite alternate;
+}
+
+@keyframes enh-cctv-active-border {
+  0%   { border-left-color: #60a5fa; box-shadow: inset 4px 0 14px rgba(96, 165, 250, 0.12); }
+  100% { border-left-color: #93c5fd; box-shadow: inset 4px 0 18px rgba(96, 165, 250, 0.2); }
+}
+
+
+/* ── 3.5 Status badges: dot glow animation ── */
+.cctv-item-status.online {
+  position: relative;
+}
+
+.cctv-item-status.online::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ade80;
+  margin-right: 4px;
+  vertical-align: middle;
+  animation: enh-status-green-pulse 1.5s ease-in-out infinite;
+  box-shadow: 0 0 4px rgba(74, 222, 128, 0.6);
+}
+
+@keyframes enh-status-green-pulse {
+  0%, 100% { box-shadow: 0 0 4px rgba(74, 222, 128, 0.6); opacity: 1; }
+  50%      { box-shadow: 0 0 10px rgba(74, 222, 128, 0.9), 0 0 20px rgba(74, 222, 128, 0.3); opacity: 0.85; }
+}
+
+.cctv-item-status.offline {
+  position: relative;
+}
+
+.cctv-item-status.offline::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f87171;
+  margin-right: 4px;
+  vertical-align: middle;
+  animation: enh-status-red-pulse 2.5s ease-in-out infinite;
+  box-shadow: 0 0 3px rgba(248, 113, 113, 0.4);
+}
+
+@keyframes enh-status-red-pulse {
+  0%, 100% { box-shadow: 0 0 3px rgba(248, 113, 113, 0.4); opacity: 0.6; }
+  50%      { box-shadow: 0 0 6px rgba(248, 113, 113, 0.6); opacity: 0.9; }
+}
+
+
+/* ── 3.6 Placeholder: animated vertical scan bar ── */
+.cctv-placeholder {
+  position: relative;
+  overflow: hidden;
+}
+
+.cctv-placeholder::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -5%;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(74, 222, 128, 0.08) 30%,
+    rgba(74, 222, 128, 0.25) 50%,
+    rgba(74, 222, 128, 0.08) 70%,
+    transparent 100%
+  );
+  box-shadow: 0 0 15px rgba(74, 222, 128, 0.15);
+  animation: enh-cctv-scanbar 4s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes enh-cctv-scanbar {
+  0%   { left: -5%; }
+  100% { left: 105%; }
+}
+
+.cctv-placeholder > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ── 3.7 Disconnect button: hover glow intensification ── */
+.cctv-disconnect-btn {
+  transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.25s ease;
+}
+
+.cctv-disconnect-btn:hover {
+  box-shadow:
+    0 4px 14px rgba(239, 68, 68, 0.4),
+    0 0 25px rgba(239, 68, 68, 0.25),
+    0 0 50px rgba(239, 68, 68, 0.1);
+}
+
+
+/* ── 3.8 Viewport: subtle vignette overlay ── */
+.cctv-main::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 55%,
+    rgba(0, 0, 0, 0.35) 85%,
+    rgba(0, 0, 0, 0.6) 100%
+  );
+  pointer-events: none;
+  z-index: 15;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   §4  UNO CARD GAME ENHANCEMENTS
+   ───────────────────────────────────────────────────────────────── */
+
+/* ── 4.1 Cards: 3D perspective tilt on hover ── */
+.uno-cards-hand-container .uno-card:hover {
+  transform: perspective(500px) rotateY(5deg) rotateX(-3deg) translateY(-15px);
+  z-index: 100 !important;
+}
+
+
+/* ── 4.2 Playable cards: enhanced golden glow pulsing ── */
+.uno-card.playable {
+  animation: enh-uno-playable-glow 1.8s ease-in-out infinite;
+}
+
+@keyframes enh-uno-playable-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 8px rgba(251, 191, 36, 0.5),
+      0 0 16px rgba(251, 191, 36, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 14px rgba(251, 191, 36, 0.8),
+      0 0 28px rgba(251, 191, 36, 0.4),
+      0 0 45px rgba(251, 191, 36, 0.15);
+  }
+}
+
+
+/* ── 4.3 UNO shout button: rainbow border rotation ── */
+.uno-shout-btn {
+  position: relative;
+  z-index: 100;
+  overflow: visible;
+}
+
+.uno-shout-btn::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    #ef4444, #f97316, #eab308, #22c55e, #3b82f6, #8b5cf6, #ec4899, #ef4444
+  );
+  z-index: -1;
+  animation: enh-uno-rainbow-spin 2s linear infinite;
+  filter: blur(2px);
+}
+
+@keyframes enh-uno-rainbow-spin {
+  to { transform: rotate(360deg); }
+}
+
+
+/* ── 4.4 Color choice circles: glow expand on hover ── */
+.uno-color-choice {
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.25s ease;
+}
+
+.uno-color-choice:hover {
+  box-shadow: 0 0 20px currentColor;
+}
+
+.uno-color-choice.red:hover   { box-shadow: 0 0 20px rgba(239, 68, 68, 0.6), 0 0 40px rgba(239, 68, 68, 0.2); }
+.uno-color-choice.blue:hover  { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 40px rgba(59, 130, 246, 0.2); }
+.uno-color-choice.green:hover { box-shadow: 0 0 20px rgba(34, 197, 94, 0.6), 0 0 40px rgba(34, 197, 94, 0.2); }
+.uno-color-choice.yellow:hover { box-shadow: 0 0 20px rgba(234, 179, 8, 0.6), 0 0 40px rgba(234, 179, 8, 0.2); }
+
+
+/* ── 4.5 Game board: animated radial gradient with subtle movement ── */
+.uno-game-board {
+  background:
+    radial-gradient(circle at 30% 40%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 70% 60%, rgba(239, 68, 68, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at center, #1b1c34 0%, #0d0e1b 100%);
+  background-size: 200% 200%, 200% 200%, 100% 100%;
+  animation: enh-uno-board-drift 15s ease infinite;
+}
+
+@keyframes enh-uno-board-drift {
+  0%   { background-position: 0% 0%, 100% 100%, center; }
+  25%  { background-position: 100% 0%, 0% 100%, center; }
+  50%  { background-position: 100% 100%, 0% 0%, center; }
+  75%  { background-position: 0% 100%, 100% 0%, center; }
+  100% { background-position: 0% 0%, 100% 100%, center; }
+}
+
+
+/* ── 4.6 Center piles: subtle floating animation ── */
+.uno-center-piles {
+  animation: enh-uno-float 4s ease-in-out infinite;
+}
+
+@keyframes enh-uno-float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-5px); }
+}
+
+
+/* ── 4.7 Direction indicator: smoother rotation, trail effect ── */
+.uno-direction-indicator {
+  border-color: rgba(255, 255, 255, 0.06);
+  transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.uno-direction-indicator .arrow {
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.15),
+    0 0 8px rgba(255, 255, 255, 0.08);
+  transition: opacity 0.3s ease;
+}
+
+
+/* ── 4.8 System message: glass blur + typewriter border animation ── */
+.uno-system-message {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(251, 191, 36, 0.15);
+  animation: enh-uno-sysmsg-border 3s ease infinite;
+}
+
+@keyframes enh-uno-sysmsg-border {
+  0%, 100% { border-color: rgba(251, 191, 36, 0.15); }
+  50%      { border-color: rgba(251, 191, 36, 0.4); }
+}
+
+
+/* ── 4.9 Logo text: enhanced text-shadow with more depth layers ── */
+.uno-logo-text {
+  text-shadow:
+    0 0 15px rgba(239, 68, 68, 0.4),
+    -4px 4px 0 #fbbf24,
+    -5px 5px 0 rgba(251, 191, 36, 0.5),
+    4px -4px 0 #3b82f6,
+    5px -5px 0 rgba(59, 130, 246, 0.5),
+    0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+
+/* ── 4.10 Card back design: subtle pattern overlay ── */
+.uno-card.card-back {
+  overflow: hidden;
+}
+
+.uno-card.card-back::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 4px,
+      rgba(255, 255, 255, 0.03) 4px,
+      rgba(255, 255, 255, 0.03) 8px
+    );
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────
+   §5  PICCHAT SOCIAL APP ENHANCEMENTS
+   ───────────────────────────────────────────────────────────────── */
+
+/* ── 5.1 Ghost logo: trail shadow effect ── */
+.pc-logo {
+  text-shadow:
+    0 2px 0 rgba(255, 252, 68, 0.35),
+    0 4px 0 rgba(255, 252, 68, 0.2),
+    0 6px 0 rgba(255, 252, 68, 0.1),
+    0 8px 0 rgba(255, 252, 68, 0.05),
+    0 12px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+/* ── 5.2 Auth card: floating particle background via pseudo-element ── */
+.pc-auth-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.pc-auth-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 20% 30%, rgba(255, 252, 68, 0.15) 50%, transparent 50%),
+    radial-gradient(1px 1px at 60% 70%, rgba(255, 252, 68, 0.1) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 80% 20%, rgba(255, 255, 255, 0.08) 50%, transparent 50%),
+    radial-gradient(1px 1px at 40% 85%, rgba(255, 252, 68, 0.12) 50%, transparent 50%),
+    radial-gradient(1px 1px at 10% 60%, rgba(255, 255, 255, 0.06) 50%, transparent 50%),
+    radial-gradient(1.5px 1.5px at 90% 50%, rgba(255, 252, 68, 0.1) 50%, transparent 50%);
+  background-size: 100% 100%;
+  animation: enh-pc-particles-drift 8s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes enh-pc-particles-drift {
+  0%   { transform: translateY(0) translateX(0); opacity: 0.7; }
+  50%  { transform: translateY(-8px) translateX(4px); opacity: 1; }
+  100% { transform: translateY(4px) translateX(-3px); opacity: 0.8; }
+}
+
+.pc-auth-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* ── 5.3 Message bubbles: slide-in from sides ── */
+.pc-msg-wrap.incoming {
+  animation: enh-pc-msg-slide-left 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.pc-msg-wrap.outgoing {
+  animation: enh-pc-msg-slide-right 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes enh-pc-msg-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes enh-pc-msg-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+/* ── 5.4 Snap unread: shimmer pulse animation ── */
+.pc-msg-attachment.snap-unread::after {
+  background: linear-gradient(
+    110deg,
+    #141124 0%,
+    #141124 40%,
+    rgba(255, 252, 68, 0.08) 50%,
+    #141124 60%,
+    #141124 100%
+  ) !important;
+  background-size: 300% 100% !important;
+  animation: enh-pc-snap-shimmer 2.5s ease infinite !important;
+}
+
+@keyframes enh-pc-snap-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -100% 0; }
+}
+
+
+/* ── 5.5 Story bubbles: rainbow gradient ring rotation ── */
+.pc-story-bubble .avatar-ring {
+  border: none;
+  background: conic-gradient(
+    from 0deg,
+    #fffc44, #f97316, #ef4444, #ec4899, #8b5cf6, #3b82f6, #22c55e, #fffc44
+  );
+  padding: 2px;
+  animation: enh-pc-story-ring-spin 4s linear infinite;
+}
+
+.pc-story-bubble.viewed .avatar-ring {
+  background: rgba(255, 255, 255, 0.15);
+  animation: none;
+}
+
+.pc-story-bubble .avatar-ring > img,
+.pc-story-bubble .avatar-ring > * {
+  border-radius: 50%;
+  background: #141124;
+}
+
+@keyframes enh-pc-story-ring-spin {
+  to { transform: rotate(360deg); }
+}
+
+
+/* ── 5.6 Yellow accent buttons: warm glow diffusion ── */
+.pc-btn.primary {
+  box-shadow:
+    0 4px 12px rgba(255, 252, 68, 0.2),
+    0 0 20px rgba(255, 252, 68, 0.1);
+  transition: background 0.2s ease, transform 0.1s ease, box-shadow 0.3s ease;
+}
+
+.pc-btn.primary:hover {
+  box-shadow:
+    0 4px 16px rgba(255, 252, 68, 0.35),
+    0 0 30px rgba(255, 252, 68, 0.15),
+    0 0 50px rgba(255, 252, 68, 0.05);
+}
+
+
+/* ── 5.7 Chat thread hover: smooth bg transition + left accent line ── */
+.pc-chat-thread {
+  position: relative;
+  transition: background 0.25s ease;
+}
+
+.pc-chat-thread::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%) scaleY(0);
+  width: 3px;
+  height: 50%;
+  background: #fffc44;
+  border-radius: 0 3px 3px 0;
+  transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.pc-chat-thread:hover::before {
+  transform: translateY(-50%) scaleY(1);
+}
+
+.pc-chat-thread:hover {
+  background: rgba(255, 252, 68, 0.03);
+}
+
+
+/* ── 5.8 Active thread: enhanced yellow glow indicator ── */
+.pc-chat-thread.active {
+  box-shadow: inset 3px 0 12px rgba(255, 252, 68, 0.08);
+}
+
+.pc-chat-thread.active::before {
+  transform: translateY(-50%) scaleY(1);
+  box-shadow: 0 0 8px rgba(255, 252, 68, 0.3);
+}
+
+
+/* ── 5.9 Send button: hover scale with glow ── */
+.pc-send-btn {
+  transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.25s ease;
+}
+
+.pc-send-btn:hover {
+  transform: scale(1.06);
+  box-shadow:
+    0 0 12px rgba(255, 252, 68, 0.3),
+    0 4px 14px rgba(255, 252, 68, 0.2);
+}
+
+
+/* ── 5.10 Streaks: fire emoji enhanced glow ── */
+.pc-chat-header .info .streak {
+  text-shadow:
+    0 0 4px rgba(249, 115, 22, 0.5),
+    0 0 10px rgba(249, 115, 22, 0.3);
+  transition: text-shadow 0.3s ease;
+}
+
+.pc-chat-header:hover .info .streak {
+  text-shadow:
+    0 0 6px rgba(249, 115, 22, 0.7),
+    0 0 14px rgba(249, 115, 22, 0.4),
+    0 0 25px rgba(249, 115, 22, 0.15);
+}

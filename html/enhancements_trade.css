@@ -1,0 +1,1850 @@
+/* ═══════════════════════════════════════════════════════════════════════════════
+   UNDERGROUND & TRADE APPS — CSS ENHANCEMENTS
+   Radio Tuner · Silk Street · Direct Order · LS Trader · Edibles Kitchen
+   ═══════════════════════════════════════════════════════════════════════════════
+   These styles cascade over the base style.css — no layout changes, only
+   visual polish: glows, animations, transitions, and atmospheric overlays.
+   ═══════════════════════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   §1  RADIO TUNER APP
+   Atmosphere: cool cyan broadcast aesthetic, LED readouts, signal pulses
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── 1.1  Frequency Input — LED-style glow ── */
+#radio-freq-input {
+  font-family: 'Courier New', Courier, monospace;
+  color: #00f0ff;
+  text-shadow:
+    0 0 4px rgba(0, 240, 255, 0.6),
+    0 0 10px rgba(0, 240, 255, 0.35),
+    0 0 20px rgba(0, 240, 255, 0.15);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, text-shadow 0.3s ease;
+}
+
+#radio-freq-input:focus {
+  border-color: #00f0ff;
+  box-shadow: 0 0 6px rgba(0, 240, 255, 0.4), inset 0 0 8px rgba(0, 240, 255, 0.06);
+  animation: radioFreqBorderPulse 2s ease-in-out infinite;
+}
+
+@keyframes radioFreqBorderPulse {
+  0%, 100% { border-color: #00f0ff; box-shadow: 0 0 6px rgba(0, 240, 255, 0.4); }
+  50%      { border-color: #00c8d9; box-shadow: 0 0 12px rgba(0, 240, 255, 0.55); }
+}
+
+/* ── 1.2  Channel Items — signal-strength indicator ── */
+.radio-channel-item {
+  border-left: 3px solid transparent;
+  transition: background 0.15s, border-color 0.15s, border-left-color 0.3s, box-shadow 0.3s;
+}
+
+.radio-channel-item.active {
+  border-left-color: #00f0ff;
+  animation: radioSignalPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes radioSignalPulse {
+  0%, 100% { border-left-color: #00f0ff; box-shadow: inset 3px 0 8px -4px rgba(0, 240, 255, 0.3); }
+  50%      { border-left-color: #00d4e0; box-shadow: inset 3px 0 14px -4px rgba(0, 240, 255, 0.55); }
+}
+
+/* ── 1.3  Member Avatar Talking — audio wave ring animation ── */
+.radio-member-avatar.talking {
+  animation: radioTalkGlow 1.2s ease-in-out infinite;
+}
+
+.radio-member-avatar.talking::before,
+.radio-member-avatar.talking::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(96, 205, 255, 0.5);
+  animation: radioWaveRing 1.6s ease-out infinite;
+  pointer-events: none;
+}
+
+.radio-member-avatar.talking::after {
+  animation-delay: 0.5s;
+}
+
+@keyframes radioWaveRing {
+  0%   { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+@keyframes radioTalkGlow {
+  0%, 100% { box-shadow: 0 0 0 2px var(--accent2), 0 0 10px var(--accent2); }
+  50%      { box-shadow: 0 0 0 3px var(--accent2), 0 0 18px var(--accent2); }
+}
+
+/* ── 1.4  Chat Bubbles — slide-in entrance ── */
+.radio-chat-bubble-content {
+  animation: radioChatSlideIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes radioChatSlideIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── 1.5  Welcome Icon — floating bob + glow ── */
+.radio-welcome-icon {
+  animation: radioIconFloat 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.35));
+}
+
+@keyframes radioIconFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+/* ── 1.6  Connect Button — glow pulse on hover ── */
+.radio-btn.primary:hover {
+  box-shadow: 0 0 10px rgba(0, 120, 212, 0.5), 0 0 25px rgba(0, 120, 212, 0.25);
+  animation: radioConnectPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes radioConnectPulse {
+  0%, 100% { box-shadow: 0 0 10px rgba(0, 120, 212, 0.5), 0 0 25px rgba(0, 120, 212, 0.25); }
+  50%      { box-shadow: 0 0 16px rgba(0, 120, 212, 0.65), 0 0 35px rgba(0, 120, 212, 0.35); }
+}
+
+/* ── 1.7  Volume Slider — accent glow track fill ── */
+.radio-volume-section input[type="range"] {
+  accent-color: #00f0ff;
+}
+
+.radio-volume-section input[type="range"]::-webkit-slider-runnable-track {
+  background: linear-gradient(90deg, rgba(0, 240, 255, 0.25), rgba(0, 240, 255, 0.05));
+  border-radius: 4px;
+  height: 4px;
+}
+
+.radio-volume-section input[type="range"]::-webkit-slider-thumb {
+  box-shadow: 0 0 6px rgba(0, 240, 255, 0.5);
+}
+
+/* ── 1.8  Section Titles — uppercase glow + spacing ── */
+.radio-section-title {
+  letter-spacing: 1.6px;
+  text-shadow: 0 0 6px rgba(0, 240, 255, 0.2);
+}
+
+.radio-chat-header,
+.radio-members-header {
+  letter-spacing: 1.4px;
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.15);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   §2  SILK STREET (DARK MARKET)
+   Atmosphere: neon purple underworld, holographic cards, glass drawers
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── 2.1  Vignette overlay on content pane ── */
+.silkstreet-content-pane {
+  position: relative;
+}
+
+.silkstreet-content-pane::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 50%, rgba(10, 8, 13, 0.7) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── 2.2  Nav Items — neon purple flicker on hover ── */
+.silkstreet-nav-item:hover,
+.silkstreet-nav-item.active {
+  text-shadow: 0 0 6px rgba(176, 38, 255, 0.6), 0 0 14px rgba(176, 38, 255, 0.25);
+  animation: silkNeonFlicker 0.4s ease-in-out 1;
+}
+
+@keyframes silkNeonFlicker {
+  0%   { opacity: 1; }
+  10%  { opacity: 0.7; }
+  20%  { opacity: 1; }
+  35%  { opacity: 0.85; }
+  45%  { opacity: 1; }
+  60%  { opacity: 0.75; }
+  70%  { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+/* ── 2.3  Cards — holographic shimmer overlay on hover ── */
+.silk-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.silk-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(176, 38, 255, 0.06) 45%,
+    rgba(220, 130, 255, 0.1) 50%,
+    rgba(176, 38, 255, 0.06) 55%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.7s ease;
+  pointer-events: none;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+.silk-card:hover::after {
+  transform: translateX(120%);
+}
+
+.silk-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(176, 38, 255, 0.2), 0 0 30px rgba(176, 38, 255, 0.08);
+}
+
+/* ── 2.4  Cart Drawer — glass blur transition ── */
+.silk-drawer {
+  backdrop-filter: blur(12px) saturate(1.3);
+  background: rgba(10, 8, 13, 0.88) !important;
+  border-left: 1px solid rgba(176, 38, 255, 0.15) !important;
+  transition: backdrop-filter 0.4s ease;
+}
+
+/* ── 2.5  Status Badges — dot pulse animation ── */
+.silk-status-badge {
+  position: relative;
+  padding-left: 20px;
+}
+
+.silk-status-badge::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #ff4f5e;
+  animation: silkDotPulse 2s ease-in-out infinite;
+}
+
+.silk-status-badge.online::before {
+  background: #10b981;
+  animation: silkDotPulseGreen 2s ease-in-out infinite;
+}
+
+@keyframes silkDotPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 79, 94, 0.5); }
+  50%      { box-shadow: 0 0 0 4px rgba(255, 79, 94, 0); }
+}
+
+@keyframes silkDotPulseGreen {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+  50%      { box-shadow: 0 0 0 4px rgba(16, 185, 129, 0); }
+}
+
+/* ── 2.6  Cart Trigger Button — neon glow pulse ── */
+.silkstreet-cart-trigger {
+  transition: background 0.2s, box-shadow 0.3s;
+}
+
+.silkstreet-cart-trigger:hover {
+  box-shadow: 0 0 12px rgba(176, 38, 255, 0.5), 0 0 30px rgba(176, 38, 255, 0.2);
+  animation: silkCartGlow 1.6s ease-in-out infinite;
+}
+
+@keyframes silkCartGlow {
+  0%, 100% { box-shadow: 0 0 12px rgba(176, 38, 255, 0.5), 0 0 30px rgba(176, 38, 255, 0.2); }
+  50%      { box-shadow: 0 0 18px rgba(176, 38, 255, 0.7), 0 0 40px rgba(176, 38, 255, 0.3); }
+}
+
+/* ── 2.7  Checkout Button — gradient sweep on hover ── */
+.silk-checkout-btn {
+  background: linear-gradient(90deg, #b026ff, #8b1fd4, #b026ff);
+  background-size: 200% 100%;
+  transition: background-position 0.5s ease, box-shadow 0.3s;
+}
+
+.silk-checkout-btn:hover {
+  background-position: 100% 0;
+  box-shadow: 0 0 14px rgba(176, 38, 255, 0.45);
+}
+
+/* ── 2.8  Section Headers — neon underline glow ── */
+.silk-section h3 {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 6px;
+}
+
+.silk-section h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #b026ff, transparent);
+  box-shadow: 0 0 8px rgba(176, 38, 255, 0.5);
+  border-radius: 1px;
+}
+
+/* ── 2.9  Contract Rows — hover border glow ── */
+.silk-contract-row {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.silk-contract-row:hover {
+  border-color: rgba(176, 38, 255, 0.35);
+  box-shadow: 0 0 12px rgba(176, 38, 255, 0.12);
+}
+
+/* ── 2.10  Glow Text — enhanced animated multi-layer glow ── */
+.glow-text {
+  text-shadow:
+    0 0 4px rgba(176, 38, 255, 0.8),
+    0 0 10px rgba(176, 38, 255, 0.5),
+    0 0 20px rgba(176, 38, 255, 0.3),
+    0 0 40px rgba(176, 38, 255, 0.15);
+  animation: silkGlowTextPulse 3s ease-in-out infinite;
+}
+
+@keyframes silkGlowTextPulse {
+  0%, 100% {
+    text-shadow:
+      0 0 4px rgba(176, 38, 255, 0.8),
+      0 0 10px rgba(176, 38, 255, 0.5),
+      0 0 20px rgba(176, 38, 255, 0.3),
+      0 0 40px rgba(176, 38, 255, 0.15);
+  }
+  50% {
+    text-shadow:
+      0 0 6px rgba(176, 38, 255, 1),
+      0 0 14px rgba(176, 38, 255, 0.65),
+      0 0 28px rgba(176, 38, 255, 0.4),
+      0 0 50px rgba(176, 38, 255, 0.2);
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   §3  DIRECT ORDER APP
+   Atmosphere: amber/orange military ops, scanline terminal, hack aesthetic
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── 3.1  Scanline overlay on content area ── */
+.directorder-content {
+  position: relative;
+}
+
+.directorder-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── 3.2  Nav Items — amber/orange glow on hover/active ── */
+.do-nav-item:hover,
+.do-nav-item.active {
+  text-shadow: 0 0 6px rgba(255, 153, 0, 0.5), 0 0 14px rgba(255, 153, 0, 0.2);
+  box-shadow: inset 0 0 12px rgba(255, 153, 0, 0.06);
+}
+
+/* ── 3.3  Gear/Motor Cards — hover lift with amber shadow ── */
+.do-card,
+.do-motor-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.do-card:hover,
+.do-motor-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 153, 0, 0.15), 0 0 25px rgba(255, 153, 0, 0.06);
+  border-color: rgba(255, 153, 0, 0.25);
+}
+
+/* ── 3.4  Motor Card Image — zoom on hover ── */
+.do-motor-img {
+  overflow: hidden;
+  transition: background-size 0.5s ease;
+}
+
+.do-motor-card:hover .do-motor-img {
+  background-size: 115% !important;
+}
+
+/* ── 3.5  Hack Buttons — terminal cursor blink border ── */
+.do-hack-btn {
+  border-style: dashed;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  animation: doHackBorderBlink 1.8s step-end infinite;
+}
+
+@keyframes doHackBorderBlink {
+  0%, 100% { border-style: dashed; }
+  50%      { border-style: solid; }
+}
+
+/* ── 3.6  Green Hack Button — green glow pulse ── */
+.do-hack-btn.green {
+  animation: doGreenGlow 2.2s ease-in-out infinite, doHackBorderBlink 1.8s step-end infinite;
+}
+
+@keyframes doGreenGlow {
+  0%, 100% { box-shadow: 0 0 6px rgba(16, 185, 129, 0.2); }
+  50%      { box-shadow: 0 0 14px rgba(16, 185, 129, 0.4), 0 0 28px rgba(16, 185, 129, 0.12); }
+}
+
+/* ── 3.7  Cart Drawer — amber glow edge treatment ── */
+.do-drawer {
+  border-left: 2px solid transparent !important;
+  border-image: linear-gradient(180deg, rgba(255, 153, 0, 0.5), rgba(255, 153, 0, 0.05)) 1;
+  backdrop-filter: blur(8px);
+  background: rgba(10, 15, 29, 0.92) !important;
+}
+
+/* ── 3.8  Checkout Button — amber gradient sweep ── */
+.do-checkout-btn {
+  background: linear-gradient(90deg, #ff9900, #e68a00, #ff9900) !important;
+  background-size: 200% 100%;
+  transition: background-position 0.5s ease, box-shadow 0.3s;
+}
+
+.do-checkout-btn:hover {
+  background-position: 100% 0;
+  box-shadow: 0 0 14px rgba(255, 153, 0, 0.45);
+}
+
+/* ── 3.9  Price Badges — pulse glow ── */
+.do-motor-price-badge {
+  animation: doPricePulse 2.5s ease-in-out infinite;
+}
+
+@keyframes doPricePulse {
+  0%, 100% { box-shadow: 0 0 4px rgba(255, 153, 0, 0.2); }
+  50%      { box-shadow: 0 0 10px rgba(255, 153, 0, 0.45), 0 0 20px rgba(255, 153, 0, 0.15); }
+}
+
+/* ── 3.10  Input Fields — focus amber glow border ── */
+.do-input:focus {
+  border-color: rgba(255, 153, 0, 0.6) !important;
+  box-shadow: 0 0 8px rgba(255, 153, 0, 0.25), inset 0 0 6px rgba(255, 153, 0, 0.05);
+}
+
+/* ── 3.11  Loan Rows — subtle separator gradient ── */
+.do-loan-row {
+  border-bottom: 1px solid transparent;
+  background-image: linear-gradient(rgba(10, 15, 29, 0), rgba(10, 15, 29, 0)),
+                     linear-gradient(90deg, transparent, rgba(255, 153, 0, 0.12), transparent);
+  background-origin: padding-box, border-box;
+  background-clip: padding-box, border-box;
+  padding-bottom: 8px;
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   §4  LS TRADER (CRYPTO TERMINAL)
+   Atmosphere: green fintech terminal, chart glows, data-driven UI
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── 4.1  Chart Line — glow trail via drop-shadow ── */
+#lt-chart-path {
+  filter: drop-shadow(0 0 3px rgba(16, 185, 129, 0.6))
+          drop-shadow(0 0 8px rgba(16, 185, 129, 0.3));
+}
+
+/* ── 4.2  Coin Icons — subtle spin on hover ── */
+.lt-coin-icon {
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.lt-coin-icon:hover {
+  transform: rotate(360deg);
+}
+
+/* ── 4.3  Price Change Badges — flash animation on update ── */
+.lt-coin-change {
+  transition: transform 0.2s ease, text-shadow 0.2s ease;
+}
+
+.lt-coin-change.flash {
+  animation: ltPriceFlash 0.5s ease-out;
+}
+
+@keyframes ltPriceFlash {
+  0%   { transform: scale(1.3); opacity: 0.7; }
+  50%  { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.lt-coin-change.positive {
+  text-shadow: 0 0 6px rgba(16, 185, 129, 0.35);
+}
+
+.lt-coin-change.negative {
+  text-shadow: 0 0 6px rgba(239, 68, 68, 0.35);
+}
+
+/* ── 4.4  Trade Buttons — gradient sweep on hover ── */
+.lt-trade-btn {
+  background-size: 200% 100%;
+  transition: background-position 0.4s ease, box-shadow 0.3s ease, transform 0.15s ease;
+}
+
+.lt-trade-btn.buy {
+  background: linear-gradient(90deg, #10b981, #0e9d6d, #10b981);
+  background-size: 200% 100%;
+}
+
+.lt-trade-btn.sell {
+  background: linear-gradient(90deg, #ef4444, #dc2626, #ef4444);
+  background-size: 200% 100%;
+}
+
+.lt-trade-btn.buy:hover {
+  background-position: 100% 0;
+  box-shadow: 0 0 14px rgba(16, 185, 129, 0.45), 0 0 30px rgba(16, 185, 129, 0.15);
+}
+
+.lt-trade-btn.sell:hover {
+  background-position: 100% 0;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.45), 0 0 30px rgba(239, 68, 68, 0.15);
+}
+
+.lt-trade-btn:active {
+  transform: scale(0.97);
+}
+
+/* ── 4.5  Portfolio Values — glow text-shadow for large numbers ── */
+.lt-portfolio-summary h2 {
+  text-shadow:
+    0 0 6px rgba(16, 185, 129, 0.4),
+    0 0 16px rgba(16, 185, 129, 0.2);
+}
+
+.lt-cash-balance h3 {
+  text-shadow:
+    0 0 6px rgba(255, 255, 255, 0.15),
+    0 0 14px rgba(255, 255, 255, 0.06);
+}
+
+/* ── 4.6  Asset Items — hover with left border accent slide-in ── */
+.lt-asset-item {
+  border-left: 3px solid transparent;
+  transition: all 0.15s, border-left-color 0.3s ease, border-left-width 0.2s ease;
+}
+
+.lt-asset-item:hover,
+.lt-asset-item.active {
+  border-left-color: #10b981;
+  border-left-width: 3px;
+  padding-left: 12px;
+}
+
+/* ── 4.7  Chart Wrapper — subtle grid lines background ── */
+.lt-chart-wrapper {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 19px,
+      rgba(16, 185, 129, 0.04) 19px,
+      rgba(16, 185, 129, 0.04) 20px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 39px,
+      rgba(16, 185, 129, 0.04) 39px,
+      rgba(16, 185, 129, 0.04) 40px
+    ),
+    #0f172a;
+}
+
+/* ── 4.8  News Feed Items — slide-in entrance ── */
+.lt-news-item {
+  animation: ltNewsSlideIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes ltNewsSlideIn {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── 4.9  News Time Tags — stronger orange glow ── */
+.lt-news-time {
+  text-shadow:
+    0 0 4px rgba(255, 153, 0, 0.5),
+    0 0 10px rgba(255, 153, 0, 0.25);
+}
+
+/* ── 4.10  Header Cards — subtle inner glow ── */
+.lt-portfolio-summary,
+.lt-cash-balance {
+  box-shadow: inset 0 0 20px rgba(16, 185, 129, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  transition: box-shadow 0.3s ease;
+}
+
+.lt-portfolio-summary:hover,
+.lt-cash-balance:hover {
+  box-shadow: inset 0 0 28px rgba(16, 185, 129, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   §5  EDIBLES KITCHEN
+   Atmosphere: organic green, fire/ember cooking, earthy premium feel
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* ── 5.1  Organic Green Vignette ── */
+.edibles-content {
+  position: relative;
+}
+
+.edibles-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 55%, rgba(6, 17, 13, 0.65) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── 5.2  Recipe Cards — animated green gradient border ── */
+.recipe-card {
+  border: 2px solid transparent;
+  background-image: linear-gradient(#0b1c16, #0b1c16),
+                     linear-gradient(135deg, #10b981, #065f46, #34d399, #10b981);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  background-size: 100% 100%, 300% 300%;
+  animation: ediblesGradientBorder 6s linear infinite;
+  transition: box-shadow 0.3s ease;
+}
+
+.recipe-card:hover {
+  box-shadow: 0 0 18px rgba(16, 185, 129, 0.15);
+}
+
+@keyframes ediblesGradientBorder {
+  0%   { background-position: 0 0, 0% 0%; }
+  50%  { background-position: 0 0, 100% 100%; }
+  100% { background-position: 0 0, 0% 0%; }
+}
+
+/* ── 5.3  Cook Button — fire ember effect via pseudo-elements ── */
+.cook-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.cook-btn:not(:disabled):hover {
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.4), 0 -4px 16px rgba(255, 153, 0, 0.15);
+}
+
+.cook-btn:not(:disabled)::before,
+.cook-btn:not(:disabled)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.cook-btn:not(:disabled):hover::before {
+  left: 30%;
+  background: #ff9900;
+  animation: emberFloat 1.2s ease-out infinite;
+}
+
+.cook-btn:not(:disabled):hover::after {
+  left: 65%;
+  background: #ef4444;
+  animation: emberFloat 1.5s ease-out 0.3s infinite;
+}
+
+@keyframes emberFloat {
+  0%   { transform: translateY(0) scale(1); opacity: 1; }
+  50%  { transform: translateY(-12px) scale(0.8); opacity: 0.7; }
+  100% { transform: translateY(-24px) scale(0.3); opacity: 0; }
+}
+
+/* ── 5.4  Cook Button Disabled — dimmed static look ── */
+.cook-btn:disabled {
+  opacity: 0.5;
+  filter: grayscale(0.3);
+}
+
+/* ── 5.5  Tolerance Bar — color shift green → yellow → red via gradient ── */
+.tolerance-bar-fill {
+  background: linear-gradient(90deg,
+    #10b981 0%,
+    #10b981 30%,
+    #eab308 55%,
+    #ef4444 85%,
+    #dc2626 100%
+  ) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── 5.6  Tolerance Bar — shimmer animation ── */
+.tolerance-bar-fill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.25) 45%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0.25) 55%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: toleranceShimmer 2.5s linear infinite;
+}
+
+@keyframes toleranceShimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ── 5.7  Ingredient Items — smooth color transition ── */
+.ing-item {
+  transition: color 0.4s ease, background 0.3s ease, text-shadow 0.3s ease;
+  padding: 3px 4px;
+  border-radius: 3px;
+}
+
+/* ── 5.8  Ingredient Items Met — checkmark glow effect ── */
+.ing-item.met {
+  text-shadow: 0 0 6px rgba(16, 185, 129, 0.35);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+/* ── 5.9  Ingredient Items Missing — subtle red dim ── */
+.ing-item.missing {
+  text-shadow: 0 0 4px rgba(255, 79, 94, 0.2);
+}
+
+/* ── 5.10  Recipe Headers — subtle gradient text ── */
+.recipe-title {
+  background: linear-gradient(135deg, #ffffff, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── 5.11  Yield Badges — pulse glow ── */
+.recipe-qty {
+  animation: ediblesYieldPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes ediblesYieldPulse {
+  0%, 100% { box-shadow: 0 0 4px rgba(16, 185, 129, 0.15); }
+  50%      { box-shadow: 0 0 10px rgba(16, 185, 129, 0.35), 0 0 20px rgba(16, 185, 129, 0.1); }
+}
+
+/* ── 5.12  Nav Items — green glow on active ── */
+.edibles-nav-item.active {
+  text-shadow: 0 0 6px rgba(16, 185, 129, 0.5), 0 0 14px rgba(16, 185, 129, 0.2);
+  box-shadow: inset 0 0 12px rgba(16, 185, 129, 0.06);
+}
+
+/* ================================================================
+   §6  DIRECT ORDER, SILK STREET, SECUROSERV & WARSTOCK PREMIUM OVERHAUL
+   Making it look better and extremely easy to order things
+   ================================================================ */
+
+/* ─── DIRECT ORDER OVERHAUL ────────────────────────────────── */
+.directorder-body {
+  background: rgba(8, 8, 10, 0.98) !important;
+  font-family: var(--font-cyber) !important;
+}
+
+.directorder-sidebar {
+  background: rgba(12, 12, 16, 0.95) !important;
+  border-right: 1px solid rgba(255, 153, 0, 0.25) !important;
+}
+
+.do-nav-item {
+  border-left: 2px solid transparent !important;
+  padding: 12px 16px !important;
+  transition: all 0.22s ease !important;
+  font-weight: 600 !important;
+  color: var(--text-dim) !important;
+}
+
+.do-nav-item:hover {
+  background: rgba(255, 153, 0, 0.08) !important;
+  color: var(--text-bright) !important;
+  border-left-color: rgba(255, 153, 0, 0.5) !important;
+}
+
+.do-nav-item.active {
+  background: rgba(255, 153, 0, 0.15) !important;
+  color: #ff9900 !important;
+  border-left-color: #ff9900 !important;
+  text-shadow: 0 0 10px rgba(255, 153, 0, 0.5) !important;
+}
+
+.do-card, .do-motor-card {
+  background: rgba(15, 15, 20, 0.8) !important;
+  border: 1px solid rgba(255, 153, 0, 0.2) !important;
+  border-radius: 8px !important;
+  padding: 15px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.do-card:hover, .do-motor-card:hover {
+  background: rgba(22, 22, 28, 0.9) !important;
+  border-color: rgba(255, 153, 0, 0.6) !important;
+  box-shadow: 0 8px 25px rgba(255, 153, 0, 0.15), 0 0 15px rgba(255, 153, 0, 0.05) !important;
+  transform: translateY(-4px) !important;
+}
+
+.do-card h4, .do-motor-info h4 {
+  font-family: var(--font-cyber) !important;
+  color: var(--text-bright) !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+  margin: 8px 0 !important;
+}
+
+.do-price, .do-motor-price-badge {
+  color: #ff9900 !important;
+  font-family: var(--font-cyber) !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  text-shadow: 0 0 8px rgba(255, 153, 0, 0.4) !important;
+}
+
+.do-card-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  margin-top: 10px !important;
+}
+
+.do-btn-qty {
+  background: rgba(255, 153, 0, 0.1) !important;
+  border: 1px solid rgba(255, 153, 0, 0.4) !important;
+  color: #ff9900 !important;
+  border-radius: 4px !important;
+  width: 26px !important;
+  height: 26px !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: bold !important;
+  transition: all 0.15s ease !important;
+}
+
+.do-btn-qty:hover {
+  background: rgba(255, 153, 0, 0.3) !important;
+  border-color: rgba(255, 153, 0, 0.8) !important;
+  color: #fff !important;
+}
+
+.do-qty {
+  color: var(--text-bright) !important;
+  font-weight: bold !important;
+  font-size: 13px !important;
+}
+
+.do-add-motor-btn {
+  background: linear-gradient(135deg, #ff9900, #d47a00) !important;
+  border: none !important;
+  color: #fff !important;
+  border-radius: 4px !important;
+  padding: 8px 12px !important;
+  font-weight: bold !important;
+  width: 100% !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+  letter-spacing: 0.5px !important;
+}
+
+.do-add-motor-btn:hover {
+  background: linear-gradient(135deg, #ffa826, #ff9900) !important;
+  box-shadow: 0 4px 15px rgba(255, 153, 0, 0.4) !important;
+  transform: translateY(-1px) !important;
+}
+
+.do-cart-btn {
+  background: rgba(255, 153, 0, 0.15) !important;
+  border: 1px solid rgba(255, 153, 0, 0.5) !important;
+  color: #ff9900 !important;
+  border-radius: 6px !important;
+  padding: 10px 16px !important;
+  font-family: var(--font-cyber) !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  transition: all 0.2s ease !important;
+}
+
+.do-cart-btn:hover {
+  background: rgba(255, 153, 0, 0.3) !important;
+  border-color: rgba(255, 153, 0, 0.9) !important;
+  box-shadow: 0 0 15px rgba(255, 153, 0, 0.3) !important;
+}
+
+.do-drawer {
+  background: rgba(8, 8, 10, 0.98) !important;
+  border-left: 2px solid rgba(255, 153, 0, 0.3) !important;
+}
+
+/* ─── SILK STREET OVERHAUL ────────────────────────────────── */
+.silkstreet-body {
+  background: rgba(6, 6, 8, 0.98) !important;
+  font-family: var(--font-cyber) !important;
+}
+
+.silkstreet-sidebar {
+  background: rgba(10, 8, 12, 0.95) !important;
+  border-right: 1px solid rgba(176, 38, 255, 0.25) !important;
+}
+
+.silkstreet-nav-item {
+  border-left: 2px solid transparent !important;
+  padding: 12px 16px !important;
+  transition: all 0.22s ease !important;
+  font-weight: 600 !important;
+  color: var(--text-dim) !important;
+}
+
+.silkstreet-nav-item:hover {
+  background: rgba(176, 38, 255, 0.08) !important;
+  color: var(--text-bright) !important;
+  border-left-color: rgba(176, 38, 255, 0.5) !important;
+}
+
+.silkstreet-nav-item.active {
+  background: rgba(176, 38, 255, 0.15) !important;
+  color: #b026ff !important;
+  border-left-color: #b026ff !important;
+  text-shadow: 0 0 10px rgba(176, 38, 255, 0.5) !important;
+}
+
+.silk-card {
+  background: rgba(12, 10, 15, 0.8) !important;
+  border: 1px solid rgba(176, 38, 255, 0.2) !important;
+  border-radius: 8px !important;
+  padding: 15px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.silk-card:hover {
+  background: rgba(18, 14, 22, 0.9) !important;
+  border-color: rgba(176, 38, 255, 0.6) !important;
+  box-shadow: 0 8px 25px rgba(176, 38, 255, 0.15), 0 0 15px rgba(176, 38, 255, 0.05) !important;
+  transform: translateY(-2px) !important;
+}
+
+.silk-card h4 {
+  font-family: var(--font-cyber) !important;
+  color: var(--text-bright) !important;
+  font-size: 14px !important;
+  margin: 0 0 4px 0 !important;
+}
+
+.silk-price {
+  color: #b026ff !important;
+  font-family: var(--font-cyber) !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  text-shadow: 0 0 8px rgba(176, 38, 255, 0.4) !important;
+}
+
+.silk-btn-qty {
+  background: rgba(176, 38, 255, 0.1) !important;
+  border: 1px solid rgba(176, 38, 255, 0.4) !important;
+  color: #b026ff !important;
+  border-radius: 4px !important;
+  width: 26px !important;
+  height: 26px !important;
+  cursor: pointer !important;
+  font-weight: bold !important;
+  transition: all 0.15s ease !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.silk-btn-qty:hover {
+  background: rgba(176, 38, 255, 0.3) !important;
+  border-color: rgba(176, 38, 255, 0.8) !important;
+  color: #fff !important;
+}
+
+.silk-qty-display {
+  color: var(--text-bright) !important;
+  font-weight: bold !important;
+  font-size: 13px !important;
+  margin: 0 6px !important;
+}
+
+.silkstreet-cart-trigger {
+  background: rgba(176, 38, 255, 0.15) !important;
+  border: 1px solid rgba(176, 38, 255, 0.5) !important;
+  color: #b026ff !important;
+  border-radius: 6px !important;
+  padding: 10px 16px !important;
+  font-family: var(--font-cyber) !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  transition: all 0.2s ease !important;
+}
+
+.silk-drawer {
+  background: rgba(6, 6, 8, 0.98) !important;
+  border-left: 2px solid rgba(176, 38, 255, 0.3) !important;
+}
+
+/* ─── SECUROSERV (BUSINESS HUB) OVERHAUL ────────────────────── */
+.business-body {
+  background: rgba(10, 10, 10, 0.98) !important;
+  font-family: var(--font-cyber) !important;
+}
+
+.business-sidebar {
+  background: rgba(15, 15, 15, 0.97) !important;
+  border-right: 1px solid rgba(184, 147, 69, 0.3) !important;
+}
+
+.biz-nav-item {
+  border-left: 2px solid transparent !important;
+  padding: 12px 20px !important;
+  transition: all 0.22s ease !important;
+  font-weight: 600 !important;
+  color: var(--text-dim) !important;
+  font-family: var(--font-cyber) !important;
+}
+
+.biz-nav-item:hover {
+  background: rgba(184, 147, 69, 0.06) !important;
+  color: var(--text-bright) !important;
+  border-left-color: rgba(184, 147, 69, 0.5) !important;
+}
+
+.biz-nav-item.active {
+  background: rgba(184, 147, 69, 0.12) !important;
+  color: #b89345 !important;
+  border-left-color: #b89345 !important;
+  text-shadow: 0 0 10px rgba(184, 147, 69, 0.4) !important;
+}
+
+/* Dashboard Cards */
+.business-content > div > div > div {
+  background: rgba(18, 18, 18, 0.9) !important;
+  border: 1px solid rgba(184, 147, 69, 0.2) !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  transition: all 0.25s ease !important;
+}
+
+.business-content > div > div > div:hover {
+  border-color: rgba(184, 147, 69, 0.45) !important;
+  box-shadow: 0 5px 15px rgba(184, 147, 69, 0.1) !important;
+  transform: translateY(-2px) !important;
+}
+
+.business-content h3 {
+  color: #b89345 !important;
+  font-family: var(--font-cyber) !important;
+  font-size: 13px !important;
+  letter-spacing: 1px !important;
+  margin-top: 0 !important;
+}
+
+/* Dashboard Buttons */
+.business-content button {
+  background: transparent !important;
+  border: 1px solid #b89345 !important;
+  color: #b89345 !important;
+  border-radius: 6px !important;
+  padding: 10px 14px !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-family: var(--font-cyber) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  width: 100% !important;
+}
+
+.business-content button:hover {
+  background: rgba(184, 147, 69, 0.12) !important;
+  border-color: #d6b365 !important;
+  color: #fff !important;
+  box-shadow: 0 0 12px rgba(184, 147, 69, 0.3) !important;
+}
+
+/* Progress bars */
+#biz-supplies-bar {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa) !important;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.6) !important;
+}
+
+#biz-stock-bar {
+  background: linear-gradient(90deg, #4ade80, #22c55e) !important;
+  box-shadow: 0 0 8px rgba(74, 222, 128, 0.6) !important;
+}
+
+/* ─── WARSTOCK (CACHE & CARRY) OVERHAUL ────────────────────── */
+.warstock-body {
+  background: rgba(14, 16, 12, 0.98) !important;
+  font-family: var(--font-cyber) !important;
+  color: #a6b571 !important;
+}
+
+.warstock-catalog-container {
+  padding: 20px !important;
+}
+
+.warstock-header h2 {
+  color: #c4d683 !important;
+  text-shadow: 0 0 10px rgba(196, 214, 131, 0.4) !important;
+}
+
+.warstock-grid {
+  gap: 15px !important;
+}
+
+/* Military Catalog Card */
+.warstock-grid > div {
+  background: rgba(22, 26, 18, 0.8) !important;
+  border: 1px solid rgba(196, 214, 131, 0.2) !important;
+  border-radius: 8px !important;
+  padding: 16px !important;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.warstock-grid > div:hover {
+  background: rgba(30, 36, 25, 0.9) !important;
+  border-color: rgba(196, 214, 131, 0.5) !important;
+  box-shadow: 0 8px 25px rgba(196, 214, 131, 0.15), 0 0 15px rgba(196, 214, 131, 0.05) !important;
+  transform: translateY(-4px) !important;
+}
+
+.warstock-grid > div i {
+  color: #c4d683 !important;
+  filter: drop-shadow(0 0 8px rgba(196, 214, 131, 0.6)) !important;
+  margin-bottom: 12px !important;
+}
+
+.warstock-grid > div > div:nth-child(2) {
+  color: #fff !important;
+  font-family: var(--font-cyber) !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+  margin-bottom: 6px !important;
+}
+
+.warstock-grid > div > div:nth-child(3) {
+  color: #c4d683 !important;
+  font-family: var(--font-cyber) !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  margin-bottom: 15px !important;
+  text-shadow: 0 0 6px rgba(196, 214, 131, 0.3) !important;
+}
+
+/* Add to Cart button inside catalog card */
+.warstock-grid button {
+  background: transparent !important;
+  border: 1px solid rgba(196, 214, 131, 0.4) !important;
+  color: #c4d683 !important;
+  border-radius: 4px !important;
+  padding: 8px 12px !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  font-family: var(--font-cyber) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.warstock-grid button:hover {
+  background: rgba(196, 214, 131, 0.12) !important;
+  border-color: #c4d683 !important;
+  color: #fff !important;
+  box-shadow: 0 0 10px rgba(196, 214, 131, 0.3) !important;
+}
+
+/* Sidebar Cart */
+.warstock-cart-sidebar {
+  background: rgba(10, 12, 8, 0.95) !important;
+  border-left: 2px solid rgba(196, 214, 131, 0.25) !important;
+}
+
+.warstock-cart-sidebar h3 {
+  font-family: var(--font-cyber) !important;
+  border-bottom: 1px solid rgba(196, 214, 131, 0.2) !important;
+}
+
+/* Cart row styling */
+#warstock-cart-items > div {
+  border-bottom: 1px solid rgba(196, 214, 131, 0.15) !important;
+  padding: 10px 0 !important;
+}
+
+#warstock-cart-items > div div:nth-child(1) {
+  color: #fff !important;
+  font-weight: 600 !important;
+}
+
+#warstock-cart-items > div div:nth-child(2) {
+  color: #c4d683 !important;
+}
+
+/* Quantity buttons inside cart */
+#warstock-cart-items button {
+  background: rgba(196, 214, 131, 0.08) !important;
+  border: 1px solid rgba(196, 214, 131, 0.3) !important;
+  color: #c4d683 !important;
+  border-radius: 3px !important;
+  width: 22px !important;
+  height: 22px !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: bold !important;
+}
+
+#warstock-cart-items button:hover {
+  background: rgba(196, 214, 131, 0.2) !important;
+  border-color: #c4d683 !important;
+  color: #fff !important;
+}
+
+#warstock-cart-items button[style*="border-color: #dc2626"] {
+  border-color: rgba(220, 38, 38, 0.5) !important;
+  color: #ef4444 !important;
+  background: rgba(220, 38, 38, 0.08) !important;
+}
+
+#warstock-cart-items button[style*="border-color: #dc2626"]:hover {
+  background: rgba(220, 38, 38, 0.25) !important;
+  border-color: #ef4444 !important;
+  color: #fff !important;
+}
+
+.warstock-cart-footer {
+  border-top: 1px solid rgba(196, 214, 131, 0.2) !important;
+}
+
+.warstock-cart-footer button {
+  background: linear-gradient(135deg, #5b6d36, #3b4723) !important;
+  border: 1px solid #7d8a36 !important;
+  color: #c4d683 !important;
+  border-radius: 6px !important;
+  padding: 12px !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-family: var(--font-cyber) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.warstock-cart-footer button:hover {
+  background: linear-gradient(135deg, #718742, #5b6d36) !important;
+  box-shadow: 0 0 15px rgba(196, 214, 131, 0.4) !important;
+  color: #fff !important;
+}
+
+/* ─── LS TRADER (CRYPTO TERMINAL) OVERHAUL ────────────────── */
+.lstrader-body {
+  background: rgba(8, 10, 8, 0.98) !important;
+  font-family: var(--font-cyber) !important;
+}
+
+.lstrader-sidebar {
+  background: rgba(10, 12, 10, 0.95) !important;
+  border-right: 1px solid rgba(16, 185, 129, 0.25) !important;
+}
+
+.lstrader-nav-item {
+  border-left: 2px solid transparent !important;
+  padding: 12px 16px !important;
+  transition: all 0.22s ease !important;
+  font-weight: 600 !important;
+  color: var(--text-dim) !important;
+}
+
+.lstrader-nav-item:hover {
+  background: rgba(16, 185, 129, 0.08) !important;
+  color: var(--text-bright) !important;
+  border-left-color: rgba(16, 185, 129, 0.5) !important;
+}
+
+.lstrader-nav-item.active {
+  background: rgba(16, 185, 129, 0.15) !important;
+  color: #10b981 !important;
+  border-left-color: #10b981 !important;
+  text-shadow: 0 0 10px rgba(16, 185, 129, 0.5) !important;
+}
+
+.lt-header-row {
+  display: flex !important;
+  gap: 15px !important;
+  margin-bottom: 20px !important;
+}
+
+.lt-portfolio-summary, .lt-cash-balance {
+  background: rgba(12, 16, 12, 0.8) !important;
+  border: 1px solid rgba(16, 185, 129, 0.2) !important;
+  border-radius: 8px !important;
+  padding: 15px 20px !important;
+  flex: 1 !important;
+  transition: border-color 0.2s ease !important;
+}
+
+.lt-portfolio-summary:hover, .lt-cash-balance:hover {
+  border-color: rgba(16, 185, 129, 0.45) !important;
+}
+
+.lt-label {
+  font-size: 11px !important;
+  text-transform: uppercase !important;
+  color: var(--text-dim) !important;
+  letter-spacing: 1px !important;
+}
+
+#lt-total-value, #lt-trading-cash {
+  margin: 5px 0 0 0 !important;
+  font-family: var(--font-cyber) !important;
+  font-weight: 700 !important;
+  color: var(--text-bright) !important;
+  text-shadow: 0 0 8px rgba(16, 185, 129, 0.3) !important;
+}
+
+#lt-total-value {
+  font-size: 24px !important;
+}
+
+#lt-trading-cash {
+  font-size: 20px !important;
+  color: #10b981 !important;
+}
+
+/* Holdings Card and Table */
+.lt-holdings-card {
+  background: rgba(12, 16, 12, 0.8) !important;
+  border: 1px solid rgba(16, 185, 129, 0.15) !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+}
+
+.lt-holdings-card h4 {
+  color: #10b981 !important;
+  font-family: var(--font-cyber) !important;
+  margin-top: 0 !important;
+  margin-bottom: 15px !important;
+  letter-spacing: 1px !important;
+}
+
+.lt-table {
+  border-collapse: collapse !important;
+}
+
+.lt-table th {
+  background: rgba(6, 8, 6, 0.95) !important;
+  border-bottom: 2px solid rgba(16, 185, 129, 0.25) !important;
+  color: #ff9900 !important; /* orange headers */
+  font-family: var(--font-cyber) !important;
+  font-size: 11px !important;
+}
+
+.lt-table td {
+  border-bottom: 1px solid rgba(16, 185, 129, 0.1) !important;
+  font-family: var(--font-cyber) !important;
+  color: var(--text) !important;
+}
+
+/* Markets Layout */
+.lt-asset-list {
+  background: rgba(10, 12, 10, 0.95) !important;
+  border: 1px solid rgba(16, 185, 129, 0.18) !important;
+  border-radius: 8px !important;
+  padding: 8px !important;
+}
+
+.lt-asset-item {
+  background: rgba(255, 255, 255, 0.01) !important;
+  border: 1px solid rgba(255, 255, 255, 0.03) !important;
+  border-radius: 6px !important;
+  padding: 10px 12px !important;
+  margin-bottom: 6px !important;
+  transition: all 0.25s ease !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.lt-asset-item:hover {
+  background: rgba(16, 185, 129, 0.06) !important;
+  border-color: rgba(16, 185, 129, 0.3) !important;
+  transform: translateY(-1px) !important;
+}
+
+.lt-asset-item.active {
+  background: rgba(16, 185, 129, 0.12) !important;
+  border-color: #10b981 !important;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.15) !important;
+}
+
+.lt-coin-icon {
+  width: 32px !important;
+  height: 32px !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+  color: #10b981 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-weight: bold !important;
+  text-shadow: 0 0 5px rgba(16, 185, 129, 0.5) !important;
+}
+
+.lt-asset-item.active .lt-coin-icon {
+  background: rgba(16, 185, 129, 0.2) !important;
+  border-color: #10b981 !important;
+  color: #fff !important;
+}
+
+.lt-coin-name {
+  font-weight: 600 !important;
+  color: var(--text-bright) !important;
+}
+
+.lt-coin-price {
+  font-family: var(--font-cyber) !important;
+}
+
+/* Trading view chart */
+.lt-chart-wrapper {
+  background: rgba(2, 4, 2, 0.95) !important;
+  border: 1px solid rgba(16, 185, 129, 0.25) !important;
+  border-radius: 8px !important;
+  padding: 15px !important;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.9), 0 0 10px rgba(16, 185, 129, 0.05) !important;
+}
+
+.lt-chart-wrapper h4 {
+  color: var(--text-bright) !important;
+  font-family: var(--font-cyber) !important;
+  margin-top: 0 !important;
+  margin-bottom: 10px !important;
+  letter-spacing: 1px !important;
+}
+
+#lt-chart-svg {
+  background: rgba(0, 0, 0, 0.6) !important;
+  border-radius: 6px !important;
+}
+
+#lt-chart-path {
+  stroke: #10b981 !important;
+  filter: drop-shadow(0 0 5px rgba(16, 185, 129, 0.8)) !important;
+}
+
+/* Trading form */
+.lt-trade-form {
+  background: rgba(12, 16, 12, 0.8) !important;
+  border: 1px solid rgba(16, 185, 129, 0.2) !important;
+  border-radius: 8px !important;
+  padding: 15px !important;
+  margin-top: 15px !important;
+}
+
+.lt-form-header {
+  font-family: var(--font-cyber) !important;
+  color: #10b981 !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  margin-bottom: 12px !important;
+  letter-spacing: 1px !important;
+}
+
+.lt-input-group label {
+  font-size: 11px !important;
+  color: var(--text-dim) !important;
+  text-transform: uppercase !important;
+}
+
+.lt-trade-buttons {
+  gap: 10px !important;
+  margin-top: 12px !important;
+}
+
+.lt-trade-btn {
+  border: none !important;
+  color: #fff !important;
+  border-radius: 4px !important;
+  padding: 10px 14px !important;
+  font-family: var(--font-cyber) !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  flex: 1 !important;
+}
+
+.lt-trade-btn.buy {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3) !important;
+}
+
+.lt-trade-btn.buy:hover {
+  background: linear-gradient(135deg, #34d399, #10b981) !important;
+  box-shadow: 0 5px 15px rgba(16, 185, 129, 0.5) !important;
+  transform: translateY(-1px) !important;
+}
+
+.lt-trade-btn.sell {
+  background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+  box-shadow: 0 3px 10px rgba(239, 68, 68, 0.3) !important;
+}
+
+.lt-trade-btn.sell:hover {
+  background: linear-gradient(135deg, #f87171, #ef4444) !important;
+  box-shadow: 0 5px 15px rgba(239, 68, 68, 0.5) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* News Wire */
+.lt-news-card {
+  background: rgba(12, 16, 12, 0.8) !important;
+  border: 1px solid rgba(16, 185, 129, 0.15) !important;
+  border-radius: 8px !important;
+  padding: 15px !important;
+  margin-top: 15px !important;
+}
+
+.lt-news-card h4 {
+  color: #ff7a00 !important; /* News Alert Orange */
+  font-family: var(--font-cyber) !important;
+  margin-top: 0 !important;
+  margin-bottom: 10px !important;
+}
+
+.lt-news-feed {
+  background: rgba(0, 0, 0, 0.4) !important;
+  border-radius: 6px !important;
+  padding: 10px !important;
+}
+
+.lt-news-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03) !important;
+  padding: 6px 0 !important;
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 11px !important;
+}
+
+.lt-news-time {
+  color: #ff9900 !important;
+}
+
+.lt-news-text {
+  color: var(--text-bright) !important;
+}
+
+/* ── 2.11  SP Heist Converter Workstation CSS ── */
+
+.silk-file-slot {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.silk-file-slot:hover {
+  background: #15111c !important;
+  border-color: rgba(176, 38, 255, 0.3) !important;
+  box-shadow: 0 0 10px rgba(176, 38, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+.silk-file-slot:active {
+  transform: translateY(0);
+}
+
+/* Custom Scrollbar for Compiler Console */
+#compiler-console::-webkit-scrollbar {
+  width: 4px;
+}
+
+#compiler-console::-webkit-scrollbar-track {
+  background: #08060a;
+}
+
+#compiler-console::-webkit-scrollbar-thumb {
+  background: #211a2d;
+  border-radius: 2px;
+}
+
+#compiler-console::-webkit-scrollbar-thumb:hover {
+  background: #b026ff;
+}
+
+/* Compiler Action Button animation */
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(176, 38, 255, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(176, 38, 255, 0.7);
+  }
+}
+
+.silk-btn-action-active {
+  animation: pulseGlow 2s infinite;
+}
+
+/* --- THE BLACK MARKET TERMINAL APP --- */
+.blackmarket-body {
+  display: flex;
+  background: #0d0f12 !important;
+  color: #d2d6dc !important;
+  font-family: 'Inter', -apple-system, sans-serif;
+  height: calc(100% - 30px);
+  user-select: none;
+}
+
+.blackmarket-sidebar {
+  width: 200px;
+  background: #11141a;
+  padding: 15px;
+  border-right: 1px solid #1c212b;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.bm-nav-item {
+  padding: 10px 12px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  font-size: 11.5px;
+  color: #a3a8b4;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bm-nav-item i {
+  font-size: 12px;
+  width: 16px;
+  text-align: center;
+}
+
+.bm-nav-item:hover {
+  background: #181d26;
+  color: white;
+}
+
+.bm-nav-item.active {
+  background: rgba(0, 255, 102, 0.08);
+  border: 1px solid rgba(0, 255, 102, 0.4);
+  color: #00ff66;
+  font-weight: bold;
+}
+
+.bm-status-panel {
+  margin-top: auto;
+  background: #151921;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #1c212b;
+}
+
+.bm-status-title {
+  font-size: 9px;
+  color: #525866;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: var(--font-mono);
+}
+
+.bm-status-value {
+  font-size: 10px;
+  color: #00ff66;
+  font-family: var(--font-mono);
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.bm-status-value::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: #00ff66;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #00ff66;
+}
+
+.blackmarket-content {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.bm-section {
+  width: 100%;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.bm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 15px;
+  padding-bottom: 20px;
+}
+
+.bm-card {
+  background: #11141a;
+  border: 1px solid #1c212b;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.bm-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0, 255, 102, 0.4);
+  box-shadow: 0 0 15px rgba(0, 255, 102, 0.08);
+}
+
+.bm-card-name {
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 6px;
+}
+
+.bm-card-desc {
+  font-size: 10.5px;
+  color: #7f84a3;
+  line-height: 1.4;
+  margin-bottom: 15px;
+  flex-grow: 1;
+}
+
+.bm-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  border-top: 1px solid rgba(255,255,255,0.03);
+  padding-top: 10px;
+}
+
+.bm-card-price {
+  font-size: 14px;
+  font-weight: bold;
+  color: #00ff66;
+  font-family: var(--font-mono);
+}
+
+.bm-card-btn {
+  background: #00ff66;
+  border: none;
+  color: black;
+  font-weight: bold;
+  font-size: 11px;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.bm-card-btn:hover {
+  background: #33ff88;
+}
+
+.bm-dealer-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #11141a;
+  border: 1px solid #1c212b;
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: border-color 0.2s ease;
+}
+
+.bm-dealer-row:hover {
+  border-color: rgba(0, 255, 102, 0.3);
+}
+
+.bm-dealer-name {
+  font-weight: bold;
+  color: white;
+  font-size: 12.5px;
+}
+
+.bm-dealer-coords {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: #525866;
+  margin-top: 4px;
+}
+
+.bm-dealer-status {
+  font-size: 10px;
+  font-weight: bold;
+  color: #00ff66;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
