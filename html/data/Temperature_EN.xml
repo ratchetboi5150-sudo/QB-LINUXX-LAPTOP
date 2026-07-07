@@ -1,0 +1,38 @@
+<TemperaturePack>
+
+	<Range id="freezing" min="-50" max="0" icon="temp_freezing">
+		<Line>Temperature is below freezing. Roads may be slippery.</Line>
+		<Line>Severe cold conditions reported. Ice may form overnight.</Line>
+		<Line>Freezing temperatures across the region. Travel with caution.</Line>
+		<Line>Sub-zero conditions detected. Frost risk remains high.</Line>
+	</Range>
+	
+	<Range id="cold" min="1" max="12" icon="temp_cold">
+		<Line>Cold conditions across the area.</Line>
+		<Line>Chilly air moving through the region.</Line>
+		<Line>Low temperatures expected today. Dress warmly.</Line>
+		<Line>Cool weather persists throughout the day.</Line>
+	</Range>
+	
+	<Range id="mild" min="13" max="22" icon="temp_mild">
+		<Line>Comfortable temperatures today.</Line>
+		<Line>Mild and pleasant conditions across the city.</Line>
+		<Line>Balanced temperatures with stable weather patterns.</Line>
+		<Line>Moderate temperatures expected throughout the day.</Line>
+	</Range>
+	
+	<Range id="warm" min="23" max="30" icon="temp_warm">
+		<Line>Warm weather building up.</Line>
+		<Line>Temperatures rising across the region.</Line>
+		<Line>Sunny and warm conditions expected.</Line>
+		<Line>Above-average warmth reported today.</Line>
+	</Range>
+	
+	<Range id="hot" min="31" max="60" icon="temp_hot">
+		<Line>Heatwave conditions. Stay hydrated.</Line>
+		<Line>Extreme heat warning in effect.</Line>
+		<Line>Very high temperatures detected. Limit outdoor activity.</Line>
+		<Line>Scorching heat across the region. Avoid prolonged exposure.</Line>
+	</Range>
+
+</TemperaturePack>

@@ -1,0 +1,36 @@
+<!-- Maximum letters (including punctuation): 73 -->
+<WeatherText>
+  <Now>
+  <Line weather="ExtraSunny">Extremely sunny weather. Maximum visibility.</Line>
+  <Line weather="ExtraSunny">Intense sunlight with no clouds.</Line>
+  <Line weather="ExtraSunny">Hot day with clear skies.</Line>
+
+  <Line weather="Clear">Clear skies. Stable conditions.</Line>
+  <Line weather="Clear">Clear conditions dominate the area.</Line>
+  <Line weather="Clear">Good visibility across the region.</Line>
+
+  <Line weather="Clouds">Light clouds present. Conditions remain safe.</Line>
+  <Line weather="Clouds">Clouds begin covering the sky.</Line>
+  <Line weather="Clouds">Cloudy conditions observed.</Line>
+
+  <Line weather="Overcast">Thick clouds cover the city.</Line>
+  <Line weather="Overcast">Dark skies with dense cloud cover.</Line>
+  <Line weather="Overcast">Overcast conditions dominate the area.</Line>
+
+  <Line weather="Raining">Rainfall reported. Roads are slippery.</Line>
+  <Line weather="Raining">Light to moderate rain ongoing.</Line>
+  <Line weather="Raining">Rain occurring in several areas.</Line>
+
+  <Line weather="ThunderStorm">Thunderstorm active. Stay alert.</Line>
+  <Line weather="ThunderStorm">Heavy rain with frequent lightning.</Line>
+  <Line weather="ThunderStorm">Severe weather with lightning.</Line>
+
+  <Line weather="Foggy">Dense fog reduces visibility.</Line>
+  <Line weather="Foggy">Fog covers main roads.</Line>
+  <Line weather="Foggy">Limited visibility due to fog.</Line>
+
+  <Line weather="Smog">Pollution haze covers the city.</Line>
+  <Line weather="Smog">Air quality has declined.</Line>
+  <Line weather="Smog">Heavy air caused by pollution.</Line>
+  </Now>
+</WeatherText>

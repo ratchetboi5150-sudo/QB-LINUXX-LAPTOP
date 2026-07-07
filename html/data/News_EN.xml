@@ -1,0 +1,298 @@
+<!-- Maximum letters (including punctuation): 73 -->
+<NewsPack>
+
+  <!-- CRIME / EMERGENCY -->
+  <Category id="crime" weight="25"
+            title="Breaking News" subtitle="Weazel News"
+            iconDict="nnw_icons" iconName="crime"
+            FBiconDict="CHAR_CALL911" FBiconName="CHAR_CALL911">
+
+    <Item>
+      <Entry>Theft reported. Suspect in dark hoodie with bag. Public advised to avoid area.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Screams and broken glass reported. Police checking scene. Drivers avoid area.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Convenience store robbery near closing. Clerk threatened. Suspect fled with cash.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Mugging in quiet alley. Victim robbed of belongings. Victim safe.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Motorcycle stolen while parked overnight. Residents urged to stay alert.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Electronics warehouse broken into via rear door. Valuable items missing.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Fight between residents caused panic. No injuries reported. Situation stable.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Police chase car without plates at high speed. Traffic briefly disrupted.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Snatch theft downtown. Victim bag stolen. Suspect fled on motorcycle.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Public facility vandalized by unknown suspect. Police investigation ongoing.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Small explosion heard in industrial area. No injuries. Minor damage reported.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Body found near river this morning. Victim identity under investigation.</Entry>
+    </Item>
+
+  </Category>
+
+  <!-- POLICE -->
+  <Category id="police" weight="18"
+            title="Public Safety" subtitle="Los Santos Police"
+            iconDict="nnw_icons" iconName="police"
+            FBiconDict="CHAR_POLICE" FBiconName="CHAR_POLICE">
+
+    <Item>
+      <Entry>Random checks underway. Follow officer instructions and traffic signs.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Wear seat belts while driving. Violations will be enforced.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Night patrols increased in risk areas. Report suspicious activity.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Vehicle inspection held across city. Documents and equipment checked.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Extra officers deployed for major event. Entry checks in effect.</Entry>
+    </Item>
+
+  </Category>
+
+  <!-- POLITICS / CITY -->
+  <Category id="politics" weight="18"
+            title="City Update" subtitle="Los Santos City Hall"
+            iconDict="nnw_icons" iconName="politics"
+            FBiconDict="CHAR_CITY" FBiconName="CHAR_CITY">
+
+    <Item>
+      <Entry>Priority programs under review. Citizens invited to share feedback.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>City maintenance ongoing in stages. Access to some areas limited.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Main road repairs begin. Follow temporary traffic signs.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>City cleanliness program expanded. Public facilities cleaned regularly.</Entry>
+    </Item>
+
+  </Category>
+
+  <!-- ECONOMY / BANK -->
+  <Category id="economy" weight="15"
+            title="Market Watch" subtitle="Financial Desk"
+            iconDict="nnw_icons" iconName="economy"
+            FBiconDict="CHAR_BANK_FLEECA" FBiconName="CHAR_BANK_FLEECA">
+
+    <Item>
+      <Entry>Fuel prices rise. Drivers advised to refuel early and compare rates.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Upcoming sales expected to be busy. Avoid peak hours and keep receipts.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Long lines reported at fuel stations since morning after price increase.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>New businesses open, creating job opportunities for local residents.</Entry>
+    </Item>
+
+  </Category>
+
+  <!-- TRAFFIC -->
+  <Category id="traffic" weight="22"
+            title="Traffic Alert" subtitle="Road Watch"
+            iconDict="nnw_icons" iconName="traffic"
+            FBiconDict="CHAR_LSPD" FBiconName="CHAR_LSPD">
+
+    <Item>
+      <Entry>Traffic congestion on freeway. Drivers advised to use alternate routes.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Watch for vehicles on shoulder. Reduce speed when passing.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Heavy congestion during evening rush due to increased traffic volume.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Minor accident slowing traffic. No fatalities reported.</Entry>
+    </Item>
+
+  </Category>
+
+  <!-- ENTERTAINMENT -->
+  <Category id="entertainment" weight="12"
+            title="Entertainment" subtitle="TV &amp; Pop Culture"
+            iconDict="nnw_icons" iconName="entertainment"
+            FBiconDict="CHAR_TV" FBiconName="CHAR_TV">
+
+    <Item>
+      <Entry>Latest TV episode praised as more exciting. Broadcast schedule changed.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Downtown busy until late night. Use alternative transportation.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Music concert held downtown with tight security measures.</Entry>
+    </Item>
+
+  </Category>
+
+  <!-- SPORTS -->
+  <Category id="sports" weight="10"
+            title="Sports Flash" subtitle="Stadium Report"
+            iconDict="nnw_icons" iconName="sports"
+            FBiconDict="CHAR_WEAZEL" FBiconName="CHAR_WEAZEL">
+
+    <Item>
+      <Entry>Major match causes heavy traffic. Avoid roads near the stadium.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Local team focuses on strategy training. Sessions closed for days.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Local derby ends in a tense draw.</Entry>
+    </Item>
+
+  </Category>
+
+  <!-- TECHNOLOGY / SOCIAL -->
+  <Category id="tech" weight="8"
+            title="Tech &amp; Social" subtitle="Lifeinvader"
+            iconDict="nnw_icons" iconName="tech"
+            FBiconDict="CHAR_WEAZEL" FBiconName="CHAR_WEAZEL">
+
+    <Item>
+      <Entry>Dangerous online trend appears. Public warned not to imitate.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Online services experiencing disruption. Technical team investigating.</Entry>
+    </Item>
+
+    <Item>
+      <Entry>Server issues slow services since morning.</Entry>
+    </Item>
+
+  </Category>
+  <!-- WANTED 1 -->
+<Category id="wanted1" weight="0"
+          title="Police Bulletin" subtitle="LSPD"
+          iconDict="nnw_icons" iconName="wanted1"
+          FBiconDict="CHAR_CALL911" FBiconName="CHAR_CALL911">
+  <Item><Entry>Minor disturbance reported. Patrol unit dispatched.</Entry></Item>
+  <Item><Entry>Suspect wanted. Public advised to stay alert.</Entry></Item>
+</Category>
+
+<!-- WANTED 2 -->
+<Category id="wanted2" weight="0"
+          title="Police Bulletin" subtitle="LSPD"
+          iconDict="nnw_icons" iconName="wanted2"
+          FBiconDict="CHAR_POLICE" FBiconName="CHAR_POLICE">
+  <Item><Entry>Pursuit initiated. Drivers yield and clear the way.</Entry></Item>
+  <Item><Entry>Patrols increased. Avoid the incident area.</Entry></Item>
+</Category>
+
+<!-- WANTED 3 -->
+<Category id="wanted3" weight="0"
+          title="Police Bulletin" subtitle="LSPD"
+          iconDict="nnw_icons" iconName="wanted3"
+          FBiconDict="CHAR_LSPD" FBiconName="CHAR_LSPD">
+  <Item><Entry>Additional units deployed. Main roads monitored.</Entry></Item>
+  <Item><Entry>Public safety alert. Stay indoors if possible.</Entry></Item>
+</Category>
+
+<!-- WANTED 4 -->
+<Category id="wanted4" weight="0"
+          title="Police Bulletin" subtitle="LSPD"
+          iconDict="nnw_icons" iconName="wanted4"
+          FBiconDict="CHAR_SWAT" FBiconName="CHAR_SWAT">
+  <Item><Entry>Dangerous situation. Tactical teams en route.</Entry></Item>
+  <Item><Entry>Major operation ongoing. Follow police instructions.</Entry></Item>
+</Category>
+
+<!-- WANTED 5 -->
+<Category id="wanted5" weight="0"
+          title="Police Bulletin" subtitle="LSPD"
+          iconDict="nnw_icons" iconName="wanted5"
+          FBiconDict="CHAR_SWAT" FBiconName="CHAR_SWAT">
+  <Item><Entry>Citywide emergency. All units deployed.</Entry></Item>
+  <Item><Entry>High-risk target. Public advised to take shelter.</Entry></Item>
+</Category>
+
+<!-- PED 1 -->
+<Category id="civilian_incident" weight="0"
+          title="Emergency Report" subtitle="Medical Services"
+          iconDict="nnw_icons" iconName="ped1"
+          FBiconDict="CHAR_AMBULANCE" FBiconName="CHAR_AMBULANCE"
+          locationPrefix="Location">
+  <Item>
+    <Entry>Civilian fatality reported. Ambulance dispatched.</Entry>
+  </Item>
+  <Item>
+    <Entry>Fatal victim confirmed. Medics and police en route.</Entry>
+  </Item>
+  <Item>
+    <Entry>Deadly incident recorded. Emergency services active.</Entry>
+  </Item>
+</Category>
+
+<!-- PED 2 -->
+<Category id="civilian_multiple" weight="0"
+          title="Emergency Bulletin" subtitle="Medical Services"
+          iconDict="nnw_icons" iconName="ped2"
+          FBiconDict="CHAR_CALL911" FBiconName="CHAR_CALL911"
+          locationPrefix="Location">
+  <Item>
+    <Entry>Multiple fatalities reported across the city.</Entry>
+    <Entry>Emergency medical units have been deployed.</Entry>
+  </Item>
+  <Item>
+    <Entry>Mass casualty incident confirmed.</Entry>
+    <Entry>Hospitals placed on high alert.</Entry>
+  </Item>
+</Category>
+
+
+</NewsPack>
